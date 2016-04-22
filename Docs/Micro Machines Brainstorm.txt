@@ -1,0 +1,30 @@
+Fuß -> Schatten nicht vergessen
+Katze
+Mauer Up Power Up
+Blümchentapetenshader
+
+
+Rücksetzen:
+Unverwundbarkeitsphase(kurz)
+An der Position des ersten orientieren
+Checkpoints auf Geraden wenn möglich
+
+Kameraideen:
+Splitscreen:
+3rd Person -> unvermeidlich
+isometrisch:
+Kamerahöhe verändern um alle im Blick zu behalten
+Splitscreen bei größerer Entfernung
+
+Killcam:
+Picture in Picture Killcam
+Verlangsamung der Zeit bei verlassen der Strecke/starken Kollisionen
+
+Strecke:
+Objekte anfahren um Punkte zu kriegen
+
+Victory Cons:
+Punkte
+Zeitlimit
+Racing
+Rundenzahl
