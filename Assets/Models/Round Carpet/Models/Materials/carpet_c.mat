@@ -100,14 +100,6 @@ Material:
         second: 0.5
       data:
         first:
-          name: _RimMin
-        second: 0.891
-      data:
-        first:
-          name: _RimMax
-        second: 0.917
-      data:
-        first:
           name: _Parallax
         second: 0.02
       data:
@@ -144,8 +136,16 @@ Material:
         second: 0
       data:
         first:
+          name: _RimMin
+        second: 0.891
+      data:
+        first:
+          name: _RimMax
+        second: 0.917
+      data:
+        first:
           name: _Outline
-        second: 0.03
+        second: 0.0241
     m_Colors:
       data:
         first:
