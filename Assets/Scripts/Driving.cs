@@ -4,18 +4,18 @@ using System.Collections;
 public class Driving : MonoBehaviour {
     //TODO: Smooth out/actually implement good vertical movement for ramps
 
-    public float speed = 90f;
-    public float turn = 5f;
-    public float hoverforce = 65f;
-    public float hoverHeight = 3.5f;
+    public float speed = 60f;
+    public float turn = 1.5f;
+    public float hoverforce = 100f;
+    public float hoverHeight = 1f;
     
-    public float angularGrip = 0.985f;
-    public float speedGrip = 0.7f;
+    public float angularGrip = 0.7f;
+    public float speedGrip = 0.9f;
 
     private float powerInput;
     private float turnInput;
     //Threshholds for a total stop if its slower than this and no inputs are made
-    public float angleThreshhold = 0.5f;
+    public float angleThreshhold = 0.2f;
     public float speedThreshhold = 0.2f;
     private Rigidbody carRigidbody;
 

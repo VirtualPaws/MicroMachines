@@ -3891,12 +3891,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
-  turn: 1
+  speed: 60
+  turn: 1.5
   hoverforce: 100
   hoverHeight: 2
-  angularGrip: 0.95
-  speedGrip: 0.7
+  angularGrip: 0.7
+  speedGrip: 0.9
+  angleThreshhold: 0.2
+  speedThreshhold: 0.2
 --- !u!1 &2069101202
 GameObject:
   m_ObjectHideFlags: 0
