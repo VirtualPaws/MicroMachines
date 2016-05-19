@@ -3,19 +3,12 @@ using System.Collections;
 
 public class Driving : MonoBehaviour {
     //TODO: implement separate physiclayer for raycasts to increase performance
-    //TODO: improve Velocity computing
-
-    public float speed = 60f;
+    
+    public float speed = 150f;
     public float turn = 1.5f;
-    //deprecated, used in hoverphysics
-    //public float hoverforce = 100f;
+    //distance the ray travels to check for floor, the lower, the better the performance
     public float checkHeight = 100f;
     
-    //Velocity of this Object is 2 parts: internal velocity, applied through controls and external velocity, applied through collision
-    //internal Velocity is alway pointed forward and the total velocity is the sum of internal and external influences
-    private Vector3 extVelocity = new Vector3(0, 0, 0);
-    private Vector3 intVelocity = new Vector3(0, 0, 0);
-
     public float angularGrip = 0.7f;
     public float speedGrip = 0.9f;
 
@@ -26,20 +19,10 @@ public class Driving : MonoBehaviour {
     public float speedThreshhold = 0.2f;
     private Rigidbody carRigidbody;
 
-    void onCollisionEnter(Collision col)
-    {
-        //change velocityvector
-    }
-
     void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,12 +38,6 @@ public class Driving : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, checkHeight))
         {
-            /* Apply physical force, kinda like a hovercar
-            float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
-            Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverforce;
-            carRigidbody.AddForce(appliedHoverForce, ForceMode.VelocityChange);
-             */
-
             //stick car to the floor
             Vector3 position = hit.point;
             position.y += 1f;
@@ -71,13 +48,6 @@ public class Driving : MonoBehaviour {
         //add inputs
         carRigidbody.AddRelativeTorque(0, turnInput * turn, 0f);
         carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
-        
-        
-        //compute velocity, blockiert momentan den rückwärtsgang
-        //needs to be improved
-        intVelocity = transform.forward * carRigidbody.velocity.magnitude;
-        carRigidbody.velocity = intVelocity + extVelocity; 
-
         
 
         //grip, so car doesnt spin out of control, 
@@ -95,13 +65,10 @@ public class Driving : MonoBehaviour {
         
         if(carRigidbody.velocity.magnitude > 0)
         {
-            if (powerInput == 0)
+            carRigidbody.velocity *= speedGrip;
+            if (carRigidbody.velocity.magnitude < speedThreshhold)
             {
-                carRigidbody.velocity *= speedGrip;
-                if (carRigidbody.velocity.magnitude < speedThreshhold)
-                {
-                    carRigidbody.velocity = new Vector3(0, 0, 0);
-                }
+                carRigidbody.velocity = new Vector3(0, 0, 0);
             }
         }
         
