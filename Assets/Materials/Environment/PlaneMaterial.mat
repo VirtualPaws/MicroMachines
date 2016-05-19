@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PlaneMaterial
-  m_Shader: {fileID: 4800000, guid: 48dca5b99d113b8d11006bab44295342, type: 3}
+  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
   m_ShaderKeywords: _EMISSION _NORMALMAP
   m_LightmapFlags: 1
   m_CustomRenderQueue: 2000
@@ -141,6 +141,10 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _Outline
+        second: 0.003
     m_Colors:
       data:
         first:
@@ -149,7 +153,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1.0147059, g: 0.987846, b: 0.94755626, a: 1}
+        second: {r: 0.89705884, g: 0.8390138, b: 0.7519464, a: 1}
       data:
         first:
           name: _HColor
@@ -158,3 +162,7 @@ Material:
         first:
           name: _SColor
         second: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
