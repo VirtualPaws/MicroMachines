@@ -107,14 +107,6 @@ Material:
         second: 0.5
       data:
         first:
-          name: _RimMin
-        second: 0.676
-      data:
-        first:
-          name: _RimMax
-        second: 0.715
-      data:
-        first:
           name: _Parallax
         second: 0.02
       data:
@@ -152,7 +144,15 @@ Material:
       data:
         first:
           name: _Outline
-        second: 0.0209
+        second: 0.0202
+      data:
+        first:
+          name: _RimMin
+        second: 0.676
+      data:
+        first:
+          name: _RimMax
+        second: 0.715
     m_Colors:
       data:
         first:
@@ -172,9 +172,9 @@ Material:
         second: {r: 0.60294116, g: 0.45752594, b: 0.23940311, a: 1}
       data:
         first:
-          name: _RimColor
-        second: {r: 1, g: 1, b: 1, a: 0.6}
-      data:
-        first:
           name: _OutlineColor
         second: {r: 0.11764705, g: 0.07030187, b: 0.010380625, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: 1, g: 1, b: 1, a: 0.6}
