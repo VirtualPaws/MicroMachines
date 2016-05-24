@@ -783,8 +783,8 @@ MonoBehaviour:
   visionAngle: {x: 45, y: 225, z: 0}
   standardDistance: 10
   distanceMultiplier: 1
-  minimumDistance: 100
-  maximumDistance: 200
+  minimumDistance: 20
+  maximumDistance: 50
 --- !u!1 &168091969
 GameObject:
   m_ObjectHideFlags: 0
