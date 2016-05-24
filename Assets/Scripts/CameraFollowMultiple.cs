@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraFollowMultiple : MonoBehaviour {
 
-    public GameObject[] objectsToFollow;
+    public List<GameObject> objectsToFollow;
     public Vector3 visionAngle;
     public float standardDistance = 10;
     public float distanceMultiplier = 1;
     public float minimumDistance = 30;
     public float maximumDistance = 80;
+
+    public void addObjectToFollowList(GameObject go) {
+        objectsToFollow.Add(go);
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -25,11 +30,33 @@ public class CameraFollowMultiple : MonoBehaviour {
         Vector3 direction = gameObject.transform.forward;
 
         Vector3 midPoint = new Vector3(0, 0, 0);
+
+        if (objectsToFollow.Count < 1)
+        {
+            return;
+        }
         foreach (GameObject ob in objectsToFollow)
         {
+            if (ob == null)
+            {
+                return;
+            }
+            if (ob.transform == null)
+            {
+                return;
+            }
+            if (ob.transform.position == null)
+            {
+                return;
+            }
             midPoint = midPoint + ob.transform.position;
         }
-        midPoint = midPoint / objectsToFollow.Length;
+        midPoint = midPoint / objectsToFollow.Count;
+
+        if (midPoint.x == 0 && midPoint.y == 0 && midPoint.z == 0)
+        {
+            midPoint = new Vector3(-33.02f, 43.16f, -144.39f);
+        }
 
         float distance = 0;
 
@@ -55,8 +82,10 @@ public class CameraFollowMultiple : MonoBehaviour {
         gameObject.transform.position = camPos-direction*distance;
 
         Camera camera = (Camera) GameObject.Find("Main Camera").GetComponent<Camera>();
+        GameObject parent = gameObject.transform.parent.gameObject;
         if (camera.orthographic)
         {
+            parent.transform.position = camPos - direction * (distance + 50);
             gameObject.transform.position = camPos - direction * (distance + 50);
             camera.orthographicSize = distance;
         }

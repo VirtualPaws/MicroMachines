@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.Networking;
 
-public class ChoiceController : MonoBehaviour {
+public class ChoiceController : NetworkBehaviour {
 	//momentan ausgewählter wagen
 	public GameObject car;
 	//alle möglichen wagen
@@ -23,8 +24,15 @@ public class ChoiceController : MonoBehaviour {
 	}
 
 	//in der variablen car steckt immer nur das ausgewählte auto
-	void Update () {
+    void Update()
+    {
+        
 		if (Input.GetKeyDown("left")) {
+            GameObject player = getLocalPlayerRep();
+            if (player == null)
+            {
+                return;
+            }
 			Destroy (car);
 			counter--;
 			if (counter < 0)
@@ -41,4 +49,32 @@ public class ChoiceController : MonoBehaviour {
 			car.SetActive (true);
 		}
 	}
+
+    GameObject getLocalPlayerRep()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length < 1)
+        {
+            return null;
+        }
+        foreach (GameObject pl in players)
+        {
+            ClientSidePlayer clientSidePlayer = (ClientSidePlayer)pl.GetComponent(typeof(ClientSidePlayer));
+            if (clientSidePlayer.isLocalPlayer)
+            {
+                return pl;
+            }
+        }
+        return null;
+    }
+
+    PlayerModel getPlayerModel(GameObject player)
+    {
+        return (PlayerModel)player.GetComponent(typeof(PlayerModel));
+    }
+
+    ClientSidePlayer getCLientSidePlayer(GameObject player)
+    {
+        return (ClientSidePlayer)player.GetComponent(typeof(ClientSidePlayer));
+    }
 }

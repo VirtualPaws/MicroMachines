@@ -27,13 +27,7 @@ public class SetupLocalPlayer : NetworkBehaviour {
             GetComponent<Driving>().enabled = true;
         GameObject go = GameObject.Find("Main Camera");
         CameraFollowMultiple other = (CameraFollowMultiple)go.GetComponent(typeof(CameraFollowMultiple));
-        GameObject[] newArray = new GameObject[other.objectsToFollow.Length + 1];
-        for (int i = 0; i < other.objectsToFollow.Length; i++)
-        {
-            newArray[i + 1] = other.objectsToFollow[i];
-        }
-        newArray[0] = gameObject;
-        other.objectsToFollow = newArray;
+        other.addObjectToFollowList(gameObject);
 	}
 
     public void Initialise()
