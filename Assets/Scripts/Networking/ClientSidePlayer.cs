@@ -45,12 +45,13 @@ public class ClientSidePlayer : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdRespawn()
+    public void CmdRespawn(GameObject sourceCar)
     {
         GameObject go = GameObject.Find("ServStuff");
         ServerSidePlayermanagement pm = (ServerSidePlayermanagement)go.GetComponent(typeof(ServerSidePlayermanagement));
-        pm.killCar(gameObject);
+        pm.killCar(sourceCar);
         pm.spawnCar(gameObject);
+        Debug.LogError("Respawned");
     }
 
     public void OnLoad()

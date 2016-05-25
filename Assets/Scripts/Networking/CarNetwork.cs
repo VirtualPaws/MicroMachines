@@ -36,7 +36,7 @@ public class CarNetwork : NetworkBehaviour {
             if (!hasAuthority)
             {
                 Debug.LogError("AUTHORITY PROBLEM");
-                player.CmdRespawn();
+                player.CmdRespawn(gameObject);
             }
         }
         dirty = false;
@@ -61,6 +61,12 @@ public class CarNetwork : NetworkBehaviour {
         if (dirty)
         {
             Initialise();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ClientSidePlayer player = (ClientSidePlayer)owner.GetComponent(typeof(ClientSidePlayer));
+            if (player.isLocalPlayer)
+                player.CmdRespawn(gameObject);
         }
 	}
 }

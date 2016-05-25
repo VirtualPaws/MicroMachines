@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -117,20 +118,41 @@ public class ServerSidePlayermanagement : NetworkBehaviour {
         spawnCarAtSpawnPoint(owner, spawnPoints[spawnPointNum]);
     }
 
+    /*
     [Server]
     public void killCar(GameObject owner)
     {
         GameObject[] carss = GameObject.FindGameObjectsWithTag("Car");
-        bool success = false;
         foreach (GameObject car in carss)
         {
             CarNetwork carNetWork = (CarNetwork)car.GetComponent(typeof(CarNetwork));
-            if (carNetWork.owner.GetInstanceID() == owner.GetInstanceID())
+            Debug.LogError(car);
+            try
             {
-                Destroy(car);
-                break;
+                if (carNetWork.owner == owner)
+                {
+                    Destroy(car);
+                    Debug.LogError("DESTROYED");
+                    break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(carNetWork);
+                foreach (Component comp in car.GetComponents(typeof(Component)))
+                {
+                    Debug.LogError(comp.name);
+                }
+                //Debug.LogError(carNetWork.owner);
             }
         }
+    }
+     * */
+
+    [Server]
+    public void killCar(GameObject car)
+    {
+        NetworkServer.Destroy(car);
     }
 
     [Server]

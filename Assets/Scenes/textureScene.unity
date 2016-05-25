@@ -779,12 +779,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b9c096b6cf2f449b6865c08655e1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToFollow: []
+  tagToFollow: Car
   visionAngle: {x: 45, y: 225, z: 0}
   standardDistance: 10
-  distanceMultiplier: 1
-  minimumDistance: 40
-  maximumDistance: 60
+  distanceMultiplier: 10
+  minimumDistance: 30
+  maximumDistance: 100
 --- !u!1 &168091969
 GameObject:
   m_ObjectHideFlags: 0
