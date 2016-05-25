@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class CarNetwork : NetworkBehaviour {
 
     [SyncVar]
     public GameObject owner;
+    [SyncVar]
+    public bool dirty = false;
     public bool inCamera = false;
 
 	// Use this for initialization
 	void Start () {
-        ClientSidePlayer player = (ClientSidePlayer)owner.GetComponent(typeof(ClientSidePlayer));
-        if (owner != null && player.isLocalPlayer)
+        if (SceneManager.GetActiveScene().name == "ChoiceScene")
         {
-            GetComponent<Driving>().enabled = true;
+            return;
         }
+        Initialise();
         GameObject go = GameObject.Find("Main Camera");
         if (go != null)
         {
@@ -23,6 +26,22 @@ public class CarNetwork : NetworkBehaviour {
             inCamera = true;
         }
 	}
+
+    public void Initialise()
+    {
+        ClientSidePlayer player = (ClientSidePlayer)owner.GetComponent(typeof(ClientSidePlayer));
+        if (owner != null && player.isLocalPlayer)
+        {
+            GetComponent<Driving>().enabled = true;
+            if (!hasAuthority)
+            {
+                Debug.LogError("AUTHORITY PROBLEM");
+                player.CmdRespawn();
+            }
+        }
+        dirty = false;
+        print("Initialised car.");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,9 +51,16 @@ public class CarNetwork : NetworkBehaviour {
             if (go != null)
             {
                 CameraFollowMultiple nm = (CameraFollowMultiple)go.GetComponent(typeof(CameraFollowMultiple));
-                nm.addObjectToFollowList(gameObject);
-                inCamera = true;
+                if (nm != null)
+                {
+                    nm.addObjectToFollowList(gameObject);
+                    inCamera = true;
+                }
             }
+        }
+        if (dirty)
+        {
+            Initialise();
         }
 	}
 }

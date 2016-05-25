@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class ServerSidePlayermanagement : NetworkBehaviour {
 
     public List<GameObject> players;
     bool inGame = false;
     bool carsSpawned = false;
+    int spawnPointNum = -1;
 
 	// Use this for initialization
     [Server]
@@ -27,27 +29,73 @@ public class ServerSidePlayermanagement : NetworkBehaviour {
             }
             if (ready)
             {
+                foreach (GameObject player in players)
+                {
+                    ((ClientSidePlayer)player.GetComponent(typeof(ClientSidePlayer))).isReady = false;
+                }
                 GameObject go = GameObject.Find("NewNetworkManager");
                 NetworkManager nm = (NetworkManager)go.GetComponent(typeof(NetworkManager));
+                NetworkServer.SetAllClientsNotReady();
                 nm.ServerChangeScene("textureScene");
                 inGame = true;
             }
         }
-		GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
-        if (inGame && !carsSpawned && cars.Length < players.Count)
+        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        if (inGame && cars.Length < players.Count)
         {
-            GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpunkt");
-            int num = 1;
+            bool ready = true;
             foreach (GameObject player in players)
             {
-                spawnCar(player, spawnPoints[num]);
-                num++;
+                ready = ready && ((ClientSidePlayer)player.GetComponent(typeof(ClientSidePlayer))).isReady;
+            }
+            if (ready)
+            {
+                foreach (GameObject player in players)
+                {
+                    spawnCar(player);
+                }
+                carsSpawned = true;
             }
         }
-	}
+        if (inGame && carsSpawned && cars.Length >= players.Count)
+        {
+            foreach (GameObject player in players)
+            {
+                PlayerModel playerModel = (PlayerModel)player.GetComponent(typeof(PlayerModel));
+                if (playerModel.car == null)
+                {
+                    print("Detected player model without car.");
+                    playerModel.debugThingie = playerModel.debugThingie + "Detected player model without car. ";
+                    GameObject[] carss = GameObject.FindGameObjectsWithTag("Car");
+                    bool success = false;
+                    foreach (GameObject car in carss)
+                    {
+                        CarNetwork carNetWork = (CarNetwork)car.GetComponent(typeof(CarNetwork));
+                        if (carNetWork.owner.GetInstanceID() == player.GetInstanceID())
+                        {
+                            playerModel.car = car;
+                            success = true;
+                            carNetWork.dirty = true;
+                            break;
+                        }
+                    }
+                    if (success)
+                    {
+                        print("Successfully set car to player model.");
+                        playerModel.debugThingie = playerModel.debugThingie + "Successfully set car to player model. ";
+                    }
+                    else
+                    {
+                        print("Failed to set car to player model.");
+                        playerModel.debugThingie = playerModel.debugThingie + "Failed to set car to player model. ";
+                    }
+                }
+            }
+        }
+    }
 
     [Server]
-    public void spawnCar(GameObject owner, GameObject spawnPoint)
+    public void spawnCarAtSpawnPoint(GameObject owner, GameObject spawnPoint)
     {
         PlayerModel playerModel = (PlayerModel)owner.GetComponent(typeof(PlayerModel));
         GameObject carPrefab = (GameObject)Resources.Load(playerModel.carPrefabPath);
@@ -55,14 +103,40 @@ public class ServerSidePlayermanagement : NetworkBehaviour {
         CarNetwork carNetwork = (CarNetwork)car.GetComponent(typeof(CarNetwork));
         carNetwork.owner = owner;
         car.transform.position = spawnPoint.transform.position;
-        car.transform.Translate(new Vector3(0,15,0));
+        car.transform.rotation = spawnPoint.transform.rotation;
+        car.transform.Translate(new Vector3(0, 15, 0));
         NetworkServer.SpawnWithClientAuthority(car, owner);
         playerModel.car = car;
+    }
+
+    [Server]
+    public void spawnCar(GameObject owner)
+    {
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpunkt");
+        spawnPointNum = (spawnPointNum + 1) % spawnPoints.Length;
+        spawnCarAtSpawnPoint(owner, spawnPoints[spawnPointNum]);
+    }
+
+    [Server]
+    public void killCar(GameObject owner)
+    {
+        GameObject[] carss = GameObject.FindGameObjectsWithTag("Car");
+        bool success = false;
+        foreach (GameObject car in carss)
+        {
+            CarNetwork carNetWork = (CarNetwork)car.GetComponent(typeof(CarNetwork));
+            if (carNetWork.owner.GetInstanceID() == owner.GetInstanceID())
+            {
+                Destroy(car);
+                break;
+            }
+        }
     }
 
     [Server]
     public void RegisterPlayer(GameObject player)
     {
         players.Add(player);
+        PlayerModel playerModel = (PlayerModel)player.GetComponent(typeof(PlayerModel));
     }
 }

@@ -39,7 +39,6 @@ public class PlayerManagement : MonoBehaviour {
         }
         if (inGame && !carsSpawned)
         {
-            NetworkManager nm = (NetworkManager)gameObject.GetComponent(typeof(NetworkManager));
             foreach (GameObject player in playerRepresentations)
             {
                 if (player == null)

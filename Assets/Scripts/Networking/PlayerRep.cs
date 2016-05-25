@@ -21,20 +21,6 @@ public class PlayerRep : NetworkBehaviour {
         id = pm.playerRepresentations.Count;
         pm.playerRepresentations.Add(gameObject);
 
-        NetworkManager nm = (NetworkManager)gameObject.GetComponent(typeof(NetworkManager));
-        /*
-        if (SceneManager.GetActiveScene().name == "testTrack_2")
-        {
-            GameObject car = (GameObject)Instantiate(carPrefab, transform.position, transform.rotation);
-            //SetupLocalPlayer slp = (SetupLocalPlayer)go.GetComponent(typeof(SetupLocalPlayer));
-            //slp.CmdSetPlayerId(id);
-            //NetworkServer.Spawn(car);
-            //slp.CmdSetPlayerId(id);
-            //slp.Initialise();
-            NetworkServer.SpawnWithClientAuthority(car, gameObject);
-        }
-         * */
-
 	}
 	
 	// Update is called once per frame

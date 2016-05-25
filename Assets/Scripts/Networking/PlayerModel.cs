@@ -10,6 +10,9 @@ public class PlayerModel : NetworkBehaviour {
     [SyncVar]
     public GameObject car = null;
 
+    [SyncVar]
+    public string debugThingie = "";
+
 	// Use this for initialization
 	void Start () {
 	

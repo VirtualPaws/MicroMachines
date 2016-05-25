@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11431556}
   - 114: {fileID: 11463158}
   - 114: {fileID: 11482482}
+  - 114: {fileID: 11413002}
   m_Layer: 0
   m_Name: PlayerClientRep
   m_TagString: Player
@@ -30,6 +31,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11413002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a09fac367844394dbc2123b9a1991df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11431556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055f20f7210378f49984225a818ae472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReady: 0
 --- !u!114 &11463158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1a70dcb4f2a004bb85f1a2963e1b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carPrefab: {fileID: 177074, guid: 458049ae24c52fe42bbaed0bd16f81af, type: 2}
+  carPrefabPath: 
   car: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

@@ -13,8 +13,6 @@ public class ClientSidePlayer : NetworkBehaviour {
         DontDestroyOnLoad(gameObject);
         if (hasAuthority)
         {
-            GameObject go = GameObject.Find("NewNetworkManager");
-            ServerSidePlayermanagement pm = (ServerSidePlayermanagement)go.GetComponent(typeof(ServerSidePlayermanagement));
             this.CmdRegister();
         }
 	}
@@ -43,6 +41,23 @@ public class ClientSidePlayer : NetworkBehaviour {
     {
         GameObject go = GameObject.Find("ServStuff");
         ServerSidePlayermanagement pm = (ServerSidePlayermanagement)go.GetComponent(typeof(ServerSidePlayermanagement));
-        pm.spawnCar(gameObject, gameObject);
+        pm.spawnCar(gameObject);
+    }
+
+    [Command]
+    public void CmdRespawn()
+    {
+        GameObject go = GameObject.Find("ServStuff");
+        ServerSidePlayermanagement pm = (ServerSidePlayermanagement)go.GetComponent(typeof(ServerSidePlayermanagement));
+        pm.killCar(gameObject);
+        pm.spawnCar(gameObject);
+    }
+
+    public void OnLoad()
+    {
+        if (hasAuthority)
+        {
+            CmdSetReady(true);
+        }
     }
 }
