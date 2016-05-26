@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class NewChoiceController : NetworkBehaviour
 {
     public int chosenNumber = 0;
     public string[] prefabPaths;
     public List<GameObject> previews;
+	Button leftArrow;
+	Button rightArrow;
+	Button readyBtn;
 
     void Start()
     {
@@ -19,6 +23,10 @@ public class NewChoiceController : NetworkBehaviour
             previews.Add(previewObject);
         }
         previews[chosenNumber].SetActive(true);
+
+		leftArrow = GameObject.Find ("ArrowLeft").GetComponent<Button> ();
+		rightArrow = GameObject.Find("ArrowRight").GetComponent<Button> ();
+		readyBtn = GameObject.Find("ReadyBtn").GetComponent<Button>();
     }
 
     //in der variablen car steckt immer nur das ausgewählte auto
@@ -36,6 +44,7 @@ public class NewChoiceController : NetworkBehaviour
             chosenNumber = (chosenNumber - 1 + prefabPaths.Length) % prefabPaths.Length;
             previews[chosenNumber].SetActive(true);
             getPlayerModel(player).CmdSetCarPrefabPath(prefabPaths[chosenNumber]);
+			leftArrow.Select ();
         }
         if (Input.GetKeyDown("right"))
         {
@@ -48,6 +57,7 @@ public class NewChoiceController : NetworkBehaviour
             chosenNumber = (chosenNumber + 1) % prefabPaths.Length;
             previews[chosenNumber].SetActive(true);
             getPlayerModel(player).CmdSetCarPrefabPath(prefabPaths[chosenNumber]);
+			rightArrow.Select ();
         }
     }
 
@@ -87,5 +97,7 @@ public class NewChoiceController : NetworkBehaviour
         }
         getClientSidePlayer(getLocalPlayerRep()).CmdSetReady(true);
         //getClientSidePlayer(getLocalPlayerRep()).CmdSpawn();
+
+		readyBtn.Select ();
     }
 }

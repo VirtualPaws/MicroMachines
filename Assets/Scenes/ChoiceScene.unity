@@ -314,7 +314,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
 --- !u!1 &649033079
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -371,8 +371,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.99249494, b: 0.72794116, a: 1}
+    m_PressedColor: {r: 1, g: 0.979716, b: 0.7058823, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -512,6 +512,22 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1574066440}
+    - target: {fileID: 22312758, guid: 924347795c037a448aac8d408639a730, type: 2}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11452566, guid: 924347795c037a448aac8d408639a730, type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11452566, guid: 924347795c037a448aac8d408639a730, type: 2}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 129078, guid: 924347795c037a448aac8d408639a730, type: 2}
+      propertyPath: m_Name
+      value: ReadyBtn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 924347795c037a448aac8d408639a730, type: 2}
   m_IsPrefabParent: 0
@@ -738,7 +754,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1230517585}
   m_LocalRotation: {x: -0.12079209, y: 0.17373109, z: 0.97733915, w: -0.005925428}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8696897}
@@ -746,7 +762,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 74.5, y: -53}
+  m_AnchoredPosition: {x: 52, y: -54}
   m_SizeDelta: {x: 142, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1230517587
@@ -761,7 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -769,8 +785,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.98924947, b: 0.6102941, a: 1}
+    m_PressedColor: {r: 0.99264705, g: 0.9588206, b: 0.6860943, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1102,7 +1118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1001 &1620152900
 Prefab:
   m_ObjectHideFlags: 0
@@ -1270,6 +1286,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!4 &1683134375 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 489126, guid: c25d214e9859cb34895834a4b2f4d79f, type: 2}
+  m_PrefabInternal: {fileID: 168051001}
 --- !u!1 &1713912258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,12 +1345,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1713912258}
-  m_LocalRotation: {x: 0.09264425, y: -0.9901546, z: -0.10341143, w: -0.017806688}
-  m_LocalPosition: {x: -56.06, y: 65.3, z: -150}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.011970317, y: -0.6907573, z: -0.13832422, w: 0.70963204}
+  m_LocalPosition: {x: 43.11264, y: 45.67656, z: -35.040066}
+  m_LocalScale: {x: 1.3925778, y: 1.392578, z: 1.3925779}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 1683134375}
+  m_RootOrder: 4
 --- !u!1001 &1718225448
 Prefab:
   m_ObjectHideFlags: 0
