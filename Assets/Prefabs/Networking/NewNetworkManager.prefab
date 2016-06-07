@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 135506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.704832, y: 1.5633287, z: -5.0716734}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,9 +55,9 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 127230, guid: c9ca57f09b57d394f881beb2787eb529, type: 2}
-  - {fileID: 147400, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
-  - {fileID: 141232, guid: 60e90bf1278194e4bb84df8fccfe53f0, type: 2}
+  - {fileID: 179670, guid: 60e90bf1278194e4bb84df8fccfe53f0, type: 2}
+  - {fileID: 167616, guid: c9ca57f09b57d394f881beb2787eb529, type: 2}
+  - {fileID: 199308, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
