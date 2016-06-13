@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Car
   - Spawnpunkt
+  - ShootingDummy
   layers:
   - Default
   - TransparentFX
