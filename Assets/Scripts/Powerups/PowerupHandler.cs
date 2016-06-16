@@ -24,7 +24,8 @@ public class PowerupHandler : MonoBehaviour {
 
     public void triggerPickup()
     {
-        powerup = new SpeedBoostPowerUp();
+        //powerup = new SpeedBoostPowerUp();
+        powerup = new RocketPowerUp();
         hasPowerup = true;
         canPickup = false;
     }
@@ -40,7 +41,7 @@ public class PowerupHandler : MonoBehaviour {
         {
             powerup.fire(gameObject);
         }
-        hasPowerup = false;
-        canPickup = true;
+        //hasPowerup = false;
+        //canPickup = true;
     }
 }
