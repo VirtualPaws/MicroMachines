@@ -9,6 +9,8 @@ public class PowerupHandler : MonoBehaviour {
 
     public IPowerUp powerup = null;
 
+    public ParticleSystem speedBoostSystem;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -24,8 +26,8 @@ public class PowerupHandler : MonoBehaviour {
 
     public void triggerPickup()
     {
-        //powerup = new SpeedBoostPowerUp();
         powerup = new RocketPowerUp();
+        //powerup = new SpeedBoostPowerUp();
         hasPowerup = true;
         canPickup = false;
     }
@@ -41,7 +43,7 @@ public class PowerupHandler : MonoBehaviour {
         {
             powerup.fire(gameObject);
         }
-        //hasPowerup = false;
-        //canPickup = true;
+        hasPowerup = false;
+        canPickup = true;
     }
 }

@@ -13,6 +13,10 @@ public class SpeedBoostPowerUp : IPowerUp
     public void fire(GameObject firingFrom)
     {
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
+        ParticleSystem ex = GameObject.Instantiate(firingFrom.GetComponent<PowerupHandler>().speedBoostSystem);
+        ex.transform.position = firingFrom.transform.position;
+        ex.transform.Rotate(new Vector3(0, 1, 0), 90);
+        ex.Play();
     }
 
     public string getName()

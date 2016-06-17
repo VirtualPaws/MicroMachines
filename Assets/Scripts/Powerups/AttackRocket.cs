@@ -21,6 +21,7 @@ public class AttackRocket : MonoBehaviour
     public bool debug_neverExplode = false;
     public ParticleSystem explosion;
     public ParticleSystem blast;
+    public ParticleSystem spawn;
 
     public Vector3 direction;
     public Vector3 targetPoint;
@@ -34,6 +35,9 @@ public class AttackRocket : MonoBehaviour
         timeFired = Time.time;
         blastInst = Instantiate(blast);
         blastInst.Play();
+        ParticleSystem ex = Instantiate(spawn);
+        ex.transform.position = gameObject.transform.position;
+        ex.Play();
 	}
 
     public void rePickTarget()
@@ -64,6 +68,11 @@ public class AttackRocket : MonoBehaviour
     {
         if (done)
         {
+            AudioSource audio = GetComponent<AudioSource>();
+            if (!audio.isPlaying)
+            {
+                Destroy(gameObject);
+            }
             return;
         }
         float speedMod = 1;
@@ -107,10 +116,14 @@ public class AttackRocket : MonoBehaviour
 
     void Explode()
     {
-        if (debug_neverExplode)
+        if (debug_neverExplode || done)
         {
             return;
         }
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.pitch = Random.Range(1f, 2f);
+        audio.Play();
+        audio.Play(44100);
         done = true;
         ParticleSystem ex = Instantiate(explosion);
         ex.transform.position = gameObject.transform.position;
@@ -122,7 +135,7 @@ public class AttackRocket : MonoBehaviour
             possibleTarget.GetComponent<Rigidbody>().AddExplosionForce(explosionForce*10, transform.position, explosionRadius);
         }
         blastInst.Stop();
-        Destroy(gameObject);
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     void OnCollisionEnter(Collision col)

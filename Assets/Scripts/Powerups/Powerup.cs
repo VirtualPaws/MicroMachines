@@ -8,6 +8,8 @@ public class Powerup : MonoBehaviour
     private float lastPickedUp = 0;
     private bool uppickable = false;
 
+    public ParticleSystem pickUpParticles;
+
 	// Use this for initialization
     void Start()
     {
@@ -31,6 +33,13 @@ public class Powerup : MonoBehaviour
             lastPickedUp = Time.time;
             SetUpPickable(false);
             ph.triggerPickup();
+            ParticleSystem ex = Instantiate(pickUpParticles);
+            ex.transform.position = gameObject.transform.position;
+            ex.Play();
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.pitch = Random.Range(0.5f, 1f);
+            audio.Play();
+            audio.Play(44100);
             return;
         }
         //Debug.LogError("object cannot hold powerups");

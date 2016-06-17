@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f655ab0cc606047b5d85b60082bd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickUpParticles: {fileID: 19821280, guid: 8a8de1c711a46994686590d3b7dd5fda, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
