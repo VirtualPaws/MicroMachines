@@ -10,9 +10,11 @@ public class Powerup : MonoBehaviour
 
     public ParticleSystem pickUpParticles;
 
+
 	// Use this for initialization
     void Start()
     {
+		
 	}
 	
 	// Update is called once per frame
@@ -40,6 +42,7 @@ public class Powerup : MonoBehaviour
             audio.pitch = Random.Range(0.5f, 1f);
             audio.Play();
             audio.Play(44100);
+
             return;
         }
         //Debug.LogError("object cannot hold powerups");

@@ -48,7 +48,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114088}
   serializedVersion: 2
-  lengthInSec: 2
+  lengthInSec: 2.3
   startDelay:
     scalar: 0
     maxCurve:
@@ -253,10 +253,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4278255601
+        rgba: 4286830847
       maxColor:
         serializedVersion: 2
-        rgba: 4294246144
+        rgba: 4282576028
       minMaxState: 2
     startSize:
       scalar: 5

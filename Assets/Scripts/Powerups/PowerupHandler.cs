@@ -26,8 +26,8 @@ public class PowerupHandler : MonoBehaviour {
 
     public void triggerPickup()
     {
-        powerup = new RocketPowerUp();
-        //powerup = new SpeedBoostPowerUp();
+        //powerup = new RocketPowerUp();
+        powerup = new SpeedBoostPowerUp();
         hasPowerup = true;
         canPickup = false;
     }

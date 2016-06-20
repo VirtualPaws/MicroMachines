@@ -1,28 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
 
 public interface IPowerUp {
     void fire(GameObject firingFrom);
     string getName();
+	void endEffect();
 }
 
 public class SpeedBoostPowerUp : IPowerUp
 {
+	public MotionBlur blur = Camera.main.GetComponent<MotionBlur>(); 
     private const float force = 200;
 
     public void fire(GameObject firingFrom)
     {
+		//activate motion blur
+		//blur.blurAmount = 0.9f;
+	
+
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
         ParticleSystem ex = GameObject.Instantiate(firingFrom.GetComponent<PowerupHandler>().speedBoostSystem);
         ex.transform.position = firingFrom.transform.position;
         ex.transform.Rotate(new Vector3(0, 1, 0), 90);
+
+		endEffect ();
+
         ex.Play();
+	
+
     }
 
     public string getName()
     {
         return "Speed Boost";
     }
+
+	public void endEffect()
+	{
+		Debug.Log ("end effect");
+		blur.blurAmount = 0.3f;
+	}
+
+
 }
 
 public class RocketPowerUp : IPowerUp
@@ -48,4 +68,9 @@ public class RocketPowerUp : IPowerUp
     {
         return "Rocket";
     }
+
+	public void endEffect()
+	{
+		Debug.Log ("end effect");
+	}
 }
