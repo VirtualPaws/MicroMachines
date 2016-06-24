@@ -360,7 +360,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150054938}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 500da95b889aa51479e1f595a0f56a92, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2127,7 +2127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d108ad722166c07428c651f6837d2810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMult: 1
 --- !u!136 &1155016942
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4117,7 +4116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d108ad722166c07428c651f6837d2810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMult: 100
 --- !u!4 &2063602323
 Transform:
   m_ObjectHideFlags: 0
@@ -4144,14 +4142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 500
   turn: 2
   checkHeight: 100
-  angularGrip: 0.7
-  speedGrip: 0.9
   gravity: 0.05
-  angleThreshhold: 0.2
-  speedThreshhold: 0.2
+  oiltime: 1
 --- !u!136 &2063602325
 CapsuleCollider:
   m_ObjectHideFlags: 0

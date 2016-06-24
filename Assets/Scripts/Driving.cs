@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Driving : MonoBehaviour
 {
-    public float speed = 200f;
-    public float turn = 3f;
+    public float speed = 600f;
+    public float turn = 5f;
     //distance the ray travels to check for floor, the lower, the better the performance
     public float checkHeight = 100f;
 
@@ -14,18 +14,24 @@ public class Driving : MonoBehaviour
     private float powerInput;
     private float turnInput;
     
-    //Threshholds for a total stop if its slower than this and no inputs are made
-    public float angleThreshhold = 0.2f;
-    public float speedThreshhold = 0.2f;
+    //Oil Powerup Timer
+    private const float OILFRICT = 0.9f;
+    private float oiltimer = 0f;
+    private bool oily = false;
+    public float oiltime = 1.0f;
 
-    //Friction gets set through underlaying Physicsmaterial
+    //Threshholds for a total stop if its slower than this and no inputs are made
+    private float angleThreshhold = 0.2f;
+    private float speedThreshhold = 0.2f;
+
+    //Deprecated: Friction gets set through underlaying Physicsmaterial
     private float angularGrip = 0.7f;
     private float speedGrip = 0.9f;
 
 
     private Rigidbody carRigidbody;
     private Quaternion curRot;
-    private float fallingspeed = 0;
+    private float fallingspeed = 0.05f;
     //Physics Layer shenanigans
     int layerMask = 1 << 8; //Layer 8 = Groundstuff
 
@@ -73,7 +79,15 @@ public class Driving : MonoBehaviour
             //Check for physics material to update friction .. 1- so that the friction in editor makes sense
             if (hit.collider.material)
             {
-                speedGrip = 1 - hit.collider.material.dynamicFriction;
+                if (!oily)
+                {
+                    speedGrip = 1 - hit.collider.material.dynamicFriction;
+                }
+                if (hit.transform.tag == "Oil")
+                {
+                    oily = true;
+                    speedGrip = 1-OILFRICT;
+                }
                 angularGrip = (1 - hit.collider.material.dynamicFriction) * 0.9f;
             }
 
@@ -94,9 +108,15 @@ public class Driving : MonoBehaviour
             transform.position = position;
         }
 
-        //add inputs
-        carRigidbody.AddRelativeTorque(0, turnInput * turn, 0f);
-        carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
+        //add inputs TODO: rotation nur wenn velocity>0 mach rotaton von velocity abhängig
+        if (carRigidbody.velocity.magnitude > 0)
+        {
+            carRigidbody.AddRelativeTorque(0, turnInput * turn, 0f);
+        }
+        if (!oily)
+        {
+            carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
+        }
 
 
         //grip, so car doesnt spin out of control, 
@@ -118,6 +138,15 @@ public class Driving : MonoBehaviour
             if (carRigidbody.velocity.magnitude < speedThreshhold)
             {
                 carRigidbody.velocity = new Vector3(0, 0, 0);
+            }
+        }
+
+        if (oily)
+        {
+            oiltimer += Time.fixedDeltaTime;
+            if (oiltimer > oiltime)
+            {
+                oily = false;
             }
         }
 
