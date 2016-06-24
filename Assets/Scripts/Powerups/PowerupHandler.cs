@@ -11,6 +11,12 @@ public class PowerupHandler : MonoBehaviour {
 
     public ParticleSystem speedBoostSystem;
 
+    public bool spawning = false;
+    public float spawnInterval = 0.1f; //seconds
+    private float lastSpawned= Time.time;
+    public GameObject spawningPrefab;
+    public float spawnTimeLeft = -1;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -21,6 +27,19 @@ public class PowerupHandler : MonoBehaviour {
         if (hasPowerup && Input.GetKeyDown(powerupKey))
         {
             firePowerUp();
+        }
+        if (spawning && spawningPrefab != null)
+        {
+            if (Time.time - lastSpawned < spawnInterval)
+            {
+                GameObject spawn = GameObject.Instantiate(spawningPrefab);
+                spawn.transform.position = gameObject.transform.position;
+            }
+            spawnTimeLeft = spawnTimeLeft - Time.deltaTime;
+            if (spawnTimeLeft < 0)
+            {
+                spawning = false;
+            }
         }
 	}
 

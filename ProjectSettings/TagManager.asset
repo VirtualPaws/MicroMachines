@@ -7,6 +7,7 @@ TagManager:
   - Car
   - Spawnpunkt
   - ShootingDummy
+  - Oil
   layers:
   - Default
   - TransparentFX
