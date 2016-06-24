@@ -16,7 +16,7 @@ public class SpeedBoostPowerUp : IPowerUp
     public void fire(GameObject firingFrom)
     {
 		//activate motion blur
-		//blur.blurAmount = 0.9f;
+		blur.blurAmount = 0.9f;
 	
 
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
@@ -48,7 +48,7 @@ public class SpeedBoostPowerUp : IPowerUp
 public class RocketPowerUp : IPowerUp
 {
     private GameObject rocketPrefab = null;
-    private Vector3 offset = new Vector3(0,5,0);
+    private Vector3 offset = new Vector3(0, 5, 0);
 
     public void fire(GameObject firingFrom)
     {
@@ -69,8 +69,32 @@ public class RocketPowerUp : IPowerUp
         return "Rocket";
     }
 
-	public void endEffect()
-	{
-		Debug.Log ("end effect");
-	}
+    public void endEffect()
+    {
+        Debug.Log("end effect");
+    }
+}
+
+public class OilSlickPowerup : IPowerUp
+{
+    private GameObject oilPrefab = null;
+    private Vector3 offset = new Vector3(0, 5, 0);
+
+    public void fire(GameObject firingFrom)
+    {
+        if (oilPrefab == null)
+        {
+            oilPrefab = Resources.Load("attacks/Oil_Attack", typeof(GameObject)) as GameObject;
+        }
+    }
+
+    public string getName()
+    {
+        return "Rocket";
+    }
+
+    public void endEffect()
+    {
+        Debug.Log("end effect");
+    }
 }
