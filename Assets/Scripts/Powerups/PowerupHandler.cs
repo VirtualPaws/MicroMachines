@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PowerupHandler : MonoBehaviour {
     public KeyCode powerupKey = KeyCode.RightControl;
@@ -16,6 +17,8 @@ public class PowerupHandler : MonoBehaviour {
     private float lastSpawned= Time.time;
     public GameObject spawningPrefab;
     public float spawnTimeLeft = -1;
+
+    private List<IDelayedBehavior> delayedActions = new List<IDelayedBehavior>();
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +44,13 @@ public class PowerupHandler : MonoBehaviour {
                 spawning = false;
             }
         }
+        foreach (IDelayedBehavior behavior in delayedActions) {
+            behavior.update();
+            if (behavior.isFinished())
+            {
+                delayedActions.Remove(behavior);
+            }
+        }
 	}
 
     public void triggerPickup()
@@ -64,5 +74,8 @@ public class PowerupHandler : MonoBehaviour {
         }
         hasPowerup = false;
         canPickup = true;
+    }
+    public void addDelayedBehavior(IDelayedBehavior behavior) {
+        delayedActions.Add(behavior);
     }
 }

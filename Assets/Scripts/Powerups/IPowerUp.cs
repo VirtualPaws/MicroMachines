@@ -12,20 +12,30 @@ public class SpeedBoostPowerUp : IPowerUp
 {
 	public MotionBlur blur = Camera.main.GetComponent<MotionBlur>(); 
     private const float force = 200;
+    private const float blurTime = 2; //seconds
 
     public void fire(GameObject firingFrom)
     {
 		//activate motion blur
 		blur.blurAmount = 0.9f;
-	
+        DelayedBlurReset blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 0.3f);
+        blurReset.setBlurValue(0.7f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
+        blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 0.6f);
+        blurReset.setBlurValue(0.5f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
+        blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 1);
+        blurReset.setBlurValue(0.3f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
 
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
         ParticleSystem ex = GameObject.Instantiate(firingFrom.GetComponent<PowerupHandler>().speedBoostSystem);
         ex.transform.position = firingFrom.transform.position;
         ex.transform.rotation = firingFrom.transform.rotation;
         ex.transform.Rotate(new Vector3(0, 1, 0), 180);
-
-		endEffect ();
 
         ex.Play();
 	
