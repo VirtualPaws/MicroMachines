@@ -73,9 +73,18 @@ public class PowerupHandler : MonoBehaviour {
 
     public void triggerPickup()
     {
-        //powerup = new RocketPowerUp();
-        //powerup = new SpeedBoostPowerUp();
-        powerup = new OilSlickPowerUp();
+        switch (Random.Range(0, 3))
+        {
+            case 0:
+                powerup = new RocketPowerUp();
+                break;
+            case 1:
+                powerup = new SpeedBoostPowerUp();
+                break;
+            case 2:
+                powerup = new OilSlickPowerUp();
+                break;
+        }
         hasPowerup = true;
         canPickup = false;
     }
