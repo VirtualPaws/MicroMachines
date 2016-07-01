@@ -86,7 +86,7 @@ public class RocketPowerUp : IPowerUp
     }
 }
 
-public class OilSlickPowerup : IPowerUp
+public class OilSlickPowerUp : IPowerUp
 {
     private GameObject oilPrefab = null;
     private Vector3 offset = new Vector3(0, 5, 0);
@@ -97,11 +97,18 @@ public class OilSlickPowerup : IPowerUp
         {
             oilPrefab = Resources.Load("attacks/Oil_Attack", typeof(GameObject)) as GameObject;
         }
+        Debug.Log("dropping oil");
+        Debug.Log(oilPrefab);
+        PowerupHandler puh = firingFrom.GetComponent<PowerupHandler>();
+        puh.spawning = true;
+        puh.spawningPrefab = oilPrefab;
+        puh.spawnInterval = 0.1f;
+        puh.spawnTimeLeft = 0.5f;
     }
 
     public string getName()
     {
-        return "Rocket";
+        return "OilSlick";
     }
 
     public void endEffect()
