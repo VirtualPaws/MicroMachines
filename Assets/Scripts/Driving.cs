@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Driving : MonoBehaviour
 {
-    public float speed = 200f;
+    public float speed = 500f;
     public float turn = 3f;
     //distance the ray travels to check for floor, the lower, the better the performance
     public float checkHeight = 100f;

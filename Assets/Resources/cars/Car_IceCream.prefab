@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupKey: 305
+  speedBoostSystem: {fileID: 0}
 --- !u!114 &11431472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,8 +171,6 @@ MonoBehaviour:
   speed: 150
   turn: 1.5
   checkHeight: 100
-  angularGrip: 0.7
-  speedGrip: 0.9
   gravity: 0.5
   angleThreshhold: 0.2
   speedThreshhold: 0.2

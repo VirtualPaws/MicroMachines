@@ -5,7 +5,7 @@ public class DriveDebug : MonoBehaviour
 {
     //TODO: implement separate physiclayer for raycasts to increase performance
 
-    public float speed = 150f;
+    public float speed = 500f;
     public float turn = 1.5f;
     //distance the ray travels to check for floor, the lower, the better the performance
     public float checkHeight = 100f;

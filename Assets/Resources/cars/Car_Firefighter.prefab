@@ -123,11 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
+  speed: 500
   turn: 1.5
   checkHeight: 100
-  angularGrip: 0.7
-  speedGrip: 0.9
   gravity: 0.5
   angleThreshhold: 0.2
   speedThreshhold: 0.2
@@ -143,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupKey: 305
+  speedBoostSystem: {fileID: 0}
 --- !u!114 &11452164
 MonoBehaviour:
   m_ObjectHideFlags: 1
