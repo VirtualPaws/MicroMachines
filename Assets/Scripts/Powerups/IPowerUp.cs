@@ -17,18 +17,18 @@ public class SpeedBoostPowerUp : IPowerUp
     public void fire(GameObject firingFrom)
     {
 		//activate motion blur
-		blur.blurAmount = 0.9f;
+		blur.blurAmount = 0.7f;
         DelayedBlurReset blurReset = new DelayedBlurReset();
         blurReset.setTimer(blurTime * 0.3f);
-        blurReset.setBlurValue(0.7f);
-        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
-        blurReset = new DelayedBlurReset();
-        blurReset.setTimer(blurTime * 0.6f);
         blurReset.setBlurValue(0.5f);
         firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
         blurReset = new DelayedBlurReset();
-        blurReset.setTimer(blurTime * 1);
+        blurReset.setTimer(blurTime * 0.6f);
         blurReset.setBlurValue(0.3f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
+        blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 1);
+        blurReset.setBlurValue(0.11f);
         firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
 
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
@@ -50,7 +50,7 @@ public class SpeedBoostPowerUp : IPowerUp
 	public void endEffect()
 	{
 		Debug.Log ("end effect");
-		blur.blurAmount = 0.3f;
+		blur.blurAmount = 0.1f;
 	}
 
 

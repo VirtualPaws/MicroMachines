@@ -1,6 +1,6 @@
 Shader "Hidden/GlobalFog" {
 Properties {
-	_MainTex ("Base (RGB)", 2D) = "black" {}
+	_MainTex ("Base (RGB)", 2D) = "white" {}
 }
 
 CGINCLUDE
