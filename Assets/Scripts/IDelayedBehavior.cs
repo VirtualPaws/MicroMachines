@@ -39,3 +39,41 @@ public class DelayedBlurReset : IDelayedBehavior
         blurValue = value;
     }
 }
+
+public class DelayedControlReset : IDelayedBehavior
+{
+    private float startTime = Time.time;
+    private float timer = 2; //seconds
+    private Driving driving;
+
+    public void setTimer(float time)
+    {
+        startTime = Time.time;
+        timer = time;
+    }
+
+    public void update()
+    {
+        if (Time.time - startTime > timer)
+        {
+            driving.enabled = true;
+        }
+    }
+
+    public bool isFinished()
+    {
+        return Time.time - startTime > timer;
+    }
+
+    public DelayedControlReset forScript(Driving dr)
+    {
+        driving = dr;
+        return this;
+    }
+
+    public DelayedControlReset withTimer(float time)
+    {
+        setTimer(time);
+        return this;
+    }
+}
