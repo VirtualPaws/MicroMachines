@@ -16,6 +16,8 @@ public class LocalChoiceManager : MonoBehaviour {
     private GameObject picked;
     private GameObject picked2;
 
+    private bool classicCameraMode = true;
+
 	// Use this for initialization
     void Start()
     {
@@ -69,6 +71,16 @@ public class LocalChoiceManager : MonoBehaviour {
         displayRightCar();
     }
 
+    public void setCameraToClassic()
+    {
+        classicCameraMode = true;
+    }
+
+    public void setCameraTo3rdPerson()
+    {
+        classicCameraMode = false;
+    }
+
     private void displayRightCar()
     {
         foreach (GameObject go in cars)
@@ -98,5 +110,15 @@ public class LocalChoiceManager : MonoBehaviour {
         GameObject picked2 = carPrefabs[indexP2];
 
         SceneManager.LoadScene("textureScene");
+    }
+
+    public bool isCameraModeClassic()
+    {
+        return classicCameraMode;
+    }
+
+    public bool isCameraMode3rdPerson()
+    {
+        return !classicCameraMode;
     }
 }
