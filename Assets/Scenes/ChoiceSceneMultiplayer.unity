@@ -754,7 +754,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 370424167}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1574066440}
+        m_MethodName: switchCarP2Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &370424167
@@ -1213,7 +1224,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 649033082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1574066440}
+        m_MethodName: switchCarP1Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &649033082
@@ -1690,7 +1712,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402932, guid: 924347795c037a448aac8d408639a730, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: setReady
+      value: begin
       objectReference: {fileID: 0}
     - target: {fileID: 11402932, guid: 924347795c037a448aac8d408639a730, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -2132,6 +2154,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1099938265}
+--- !u!1 &1138950054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1138950055}
+  m_Layer: 0
+  m_Name: Car Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1138950055
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1138950054}
+  m_LocalRotation: {x: 0, y: -0.31236973, z: 0, w: 0.94996065}
+  m_LocalPosition: {x: -56.9, y: 50.28, z: -180.94}
+  m_LocalScale: {x: 1.0014515, y: 1.0012437, z: 1.0025547}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1001 &1210824100
 Prefab:
   m_ObjectHideFlags: 0
@@ -2177,7 +2226,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 455600, guid: c9ca57f09b57d394f881beb2787eb529, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9ca57f09b57d394f881beb2787eb529, type: 2}
@@ -2256,7 +2305,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1230517588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1574066440}
+        m_MethodName: switchCarP1Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1230517588
@@ -2401,7 +2461,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 415568, guid: 60e90bf1278194e4bb84df8fccfe53f0, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60e90bf1278194e4bb84df8fccfe53f0, type: 2}
@@ -2452,6 +2512,10 @@ Prefab:
     - target: {fileID: 427248, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 199308, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
@@ -3048,7 +3112,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1574066442}
-  - 114: {fileID: 1574066441}
   - 114: {fileID: 1574066440}
   m_Layer: 0
   m_Name: ChoiceManager
@@ -3065,47 +3128,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1574066439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda9ca98166a5044da2c2d4ca0c0343d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8aa35cc47d2a3fc45a5dc51213230ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenNumber: 0
-  prefabPaths:
-  - cars/Car_Firefighter
-  - cars/Car_IceCream
-  - cars/Car_Taxi
-  previews: []
---- !u!114 &1574066441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1574066439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  carPrefabs:
+  - {fileID: 179670, guid: 6d4857de4835fea4288aa28c6b750c4d, type: 2}
+  - {fileID: 167616, guid: 4a41e4cc8ca93b74584fab8907788927, type: 2}
+  - {fileID: 199308, guid: f3738b2b71d2a8f4c998912b44236fc9, type: 2}
+  carHolder: {fileID: 1138950054}
+  carHolder2: {fileID: 1851277878}
 --- !u!4 &1574066442
 Transform:
   m_ObjectHideFlags: 0
@@ -3253,7 +3284,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1654234240}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1574066440}
+        m_MethodName: switchCarP2Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1654234240
@@ -3470,48 +3512,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1474365653}
   m_RootOrder: 0
---- !u!1001 &1718225448
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471282, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: af5dc41e64376d74fac1cf36527b05cd, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1726074326
 Prefab:
   m_ObjectHideFlags: 0
@@ -3741,48 +3741,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &1864156496
-Prefab:
+--- !u!1 &1851277878
+GameObject:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 444274, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 63d8c7f2e7feb174c8470a92ab43e97f, type: 2}
-  m_IsPrefabParent: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1851277879}
+  m_Layer: 0
+  m_Name: Car Holder 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1851277879
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1851277878}
+  m_LocalRotation: {x: 0, y: 0.3123694, z: 0, w: -0.9499607}
+  m_LocalPosition: {x: 78.66, y: 50.28, z: -180.94}
+  m_LocalScale: {x: 1.0014515, y: 1.0012437, z: 1.0025547}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1917736733
 GameObject:
   m_ObjectHideFlags: 0
