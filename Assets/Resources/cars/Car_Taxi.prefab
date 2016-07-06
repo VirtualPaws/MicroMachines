@@ -175,7 +175,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupKey: 305
-  speedBoostSystem: {fileID: 0}
+  speedBoostSystem: {fileID: 19822826, guid: d26ad5b148fb14b4199b42ed466ed41a, type: 2}
+  spawning: 0
+  spawnInterval: 0.1
+  spawningPrefab: {fileID: 0}
+  spawnTimeLeft: -1
 --- !u!114 &11486708
 MonoBehaviour:
   m_ObjectHideFlags: 1

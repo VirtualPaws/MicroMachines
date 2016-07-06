@@ -19,6 +19,7 @@ public class AttackRocket : MonoBehaviour
     public float explosionRadius = 100;
     public float maxFlightTime = 5; //seconds
     public bool debug_neverExplode = false;
+    public Vector3 explosionCorrection;
     public ParticleSystem explosion;
     public ParticleSystem blast;
     public ParticleSystem spawn;
@@ -132,10 +133,16 @@ public class AttackRocket : MonoBehaviour
         possibleTargets.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("Car")));
         foreach (GameObject possibleTarget in possibleTargets)
         {
-            possibleTarget.GetComponent<Rigidbody>().AddExplosionForce(explosionForce*10, transform.position, explosionRadius);
+            Driving dr = possibleTarget.GetComponent<Driving>();
+            if (dr != null)
+            {
+                dr.enabled = false;
+                possibleTarget.GetComponent<PowerupHandler>().addDelayedBehavior(new DelayedControlReset().withTimer(2).forScript(dr));
+            }
+            possibleTarget.GetComponent<Rigidbody>().AddExplosionForce(explosionForce*10, transform.position + explosionCorrection, explosionRadius);
         }
         blastInst.Stop();
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     void OnCollisionEnter(Collision col)

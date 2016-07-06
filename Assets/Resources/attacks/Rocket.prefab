@@ -294,10 +294,11 @@ MonoBehaviour:
   rotationBasedSpeedMod: 0.9
   brake: 0.5
   explosionDistance: 10
-  explosionForce: 500
-  explosionRadius: 20
+  explosionForce: 300
+  explosionRadius: 40
   maxFlightTime: 5
   debug_neverExplode: 0
+  explosionCorrection: {x: 0, y: -10, z: 0}
   explosion: {fileID: 19815726, guid: 1c4b32923fa6b0644891d6ab484c2c91, type: 2}
   blast: {fileID: 19888708, guid: c8ccebb27ee76df4ba577f1f7fe0a4f7, type: 2}
   spawn: {fileID: 19869526, guid: b3bdd655554e23b439ef835be4e67112, type: 2}

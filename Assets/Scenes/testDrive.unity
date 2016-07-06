@@ -323,7 +323,7 @@ GameObject:
   - 23: {fileID: 150054939}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Oil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -360,7 +360,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150054938}
-  m_Material: {fileID: 13400000, guid: 500da95b889aa51479e1f595a0f56a92, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

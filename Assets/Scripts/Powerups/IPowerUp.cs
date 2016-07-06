@@ -12,20 +12,30 @@ public class SpeedBoostPowerUp : IPowerUp
 {
 	public MotionBlur blur = Camera.main.GetComponent<MotionBlur>(); 
     private const float force = 200;
+    private const float blurTime = 2; //seconds
 
     public void fire(GameObject firingFrom)
     {
 		//activate motion blur
-		blur.blurAmount = 0.9f;
-	
+		blur.blurAmount = 0.7f;
+        DelayedBlurReset blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 0.3f);
+        blurReset.setBlurValue(0.5f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
+        blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 0.6f);
+        blurReset.setBlurValue(0.3f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
+        blurReset = new DelayedBlurReset();
+        blurReset.setTimer(blurTime * 1);
+        blurReset.setBlurValue(0.11f);
+        firingFrom.GetComponent<PowerupHandler>().addDelayedBehavior(blurReset);
 
         firingFrom.GetComponent<Rigidbody>().AddRelativeForce(0, 0, force, ForceMode.Impulse);
         ParticleSystem ex = GameObject.Instantiate(firingFrom.GetComponent<PowerupHandler>().speedBoostSystem);
         ex.transform.position = firingFrom.transform.position;
         ex.transform.rotation = firingFrom.transform.rotation;
         ex.transform.Rotate(new Vector3(0, 1, 0), 180);
-
-		endEffect ();
 
         ex.Play();
 	
@@ -40,7 +50,7 @@ public class SpeedBoostPowerUp : IPowerUp
 	public void endEffect()
 	{
 		Debug.Log ("end effect");
-		blur.blurAmount = 0.3f;
+		blur.blurAmount = 0.1f;
 	}
 
 
@@ -76,7 +86,7 @@ public class RocketPowerUp : IPowerUp
     }
 }
 
-public class OilSlickPowerup : IPowerUp
+public class OilSlickPowerUp : IPowerUp
 {
     private GameObject oilPrefab = null;
     private Vector3 offset = new Vector3(0, 5, 0);
@@ -87,11 +97,18 @@ public class OilSlickPowerup : IPowerUp
         {
             oilPrefab = Resources.Load("attacks/Oil_Attack", typeof(GameObject)) as GameObject;
         }
+        Debug.Log("dropping oil");
+        Debug.Log(oilPrefab);
+        PowerupHandler puh = firingFrom.GetComponent<PowerupHandler>();
+        puh.spawning = true;
+        puh.spawningPrefab = oilPrefab;
+        puh.spawnInterval = 0.1f;
+        puh.spawnTimeLeft = 0.5f;
     }
 
     public string getName()
     {
-        return "Rocket";
+        return "OilSlick";
     }
 
     public void endEffect()

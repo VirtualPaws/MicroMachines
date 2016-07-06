@@ -9,9 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 455600}
   - 114: {fileID: 11431472}
-  - 114: {fileID: 11410340}
-  - 114: {fileID: 11440802}
-  - 114: {fileID: 11460110}
   - 54: {fileID: 5481296}
   - 136: {fileID: 13615378}
   - 114: {fileID: 11417824}
@@ -112,38 +109,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &11410340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 201
-    i1: 202
-    i2: 87
-    i3: 240
-    i4: 155
-    i5: 87
-    i6: 211
-    i7: 148
-    i8: 248
-    i9: 129
-    i10: 190
-    i11: 178
-    i12: 120
-    i13: 126
-    i14: 181
-    i15: 41
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &11417824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,40 +143,6 @@ MonoBehaviour:
   gravity: 0.5
   angleThreshhold: 0.2
   speedThreshhold: 0.2
---- !u!114 &11440802
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80e30aa2ca79f634ab5b1afd9df26497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  dirty: 0
-  inCamera: 0
---- !u!114 &11460110
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 1
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!136 &13615378
 CapsuleCollider:
   m_ObjectHideFlags: 1
