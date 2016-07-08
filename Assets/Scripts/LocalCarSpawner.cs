@@ -26,6 +26,7 @@ public class LocalCarSpawner : MonoBehaviour {
             i++;
             GameObject spawn = Instantiate(pick);
             spawn.transform.position = spawnPoints[i % spawnPoints.Length].transform.position;
+            spawn.transform.rotation = spawnPoints[i % spawnPoints.Length].transform.rotation;
             spawn.GetComponent<Driving>().enabled = true;
             spawn.name = "Player" + (i+1);
             spawn.GetComponent<Driving>().inputDevice = controls[i % controls.Count];

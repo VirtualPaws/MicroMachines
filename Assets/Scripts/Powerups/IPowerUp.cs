@@ -17,7 +17,10 @@ public class SpeedBoostPowerUp : IPowerUp
     public void fire(GameObject firingFrom)
     {
 		//activate motion blur
-		blur.blurAmount = 0.7f;
+        if (blur != null)
+        {
+            blur.blurAmount = 0.7f;
+        }
         DelayedBlurReset blurReset = new DelayedBlurReset();
         blurReset.setTimer(blurTime * 0.3f);
         blurReset.setBlurValue(0.5f);
