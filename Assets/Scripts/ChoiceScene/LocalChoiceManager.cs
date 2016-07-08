@@ -10,6 +10,7 @@ public class LocalChoiceManager : MonoBehaviour {
     public GameObject carHolder2;
 
     public KeyCode enterKey = KeyCode.Return;
+    public KeyCode enterKey2 = KeyCode.Space;
     private string enterButton = "Vertical";
 
     private List<GameObject> cars;
@@ -62,6 +63,11 @@ public class LocalChoiceManager : MonoBehaviour {
                 player1Controls = "Keyboard";
                 player1HasControls = true;
             }
+            if (Input.GetKeyDown(enterKey2))
+            {
+                player1Controls = "Keyboard2";
+                player1HasControls = true;
+            }
             else if (Input.GetButtonDown(enterButton + "2"))
             {
                 player1Controls = "Controller1";
@@ -78,6 +84,11 @@ public class LocalChoiceManager : MonoBehaviour {
             if (Input.GetKeyDown(enterKey) && !player1Controls.Equals("Keyboard"))
             {
                 player2Controls = "Keyboard";
+                player2HasControls = true;
+            }
+            if (Input.GetKeyDown(enterKey2))
+            {
+                player2Controls = "Keyboard2";
                 player2HasControls = true;
             }
             else if (Input.GetButtonDown(enterButton+"2") && !player1Controls.Equals("Controller1"))
