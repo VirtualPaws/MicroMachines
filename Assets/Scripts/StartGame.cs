@@ -18,7 +18,7 @@ public class StartGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.anyKey) {
-			SceneManager.LoadScene ("ChoiceScene");
+			SceneManager.LoadScene ("ChoiceSceneMultiplayer");
 		}
 	}
 }
