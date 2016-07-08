@@ -3,24 +3,28 @@ using System.Collections;
 
 public class Driving : MonoBehaviour
 {
-<<<<<<< HEAD
-    public float speed = 600f;
-    public float turn = 5f;
-=======
     public float speed = 500f;
-    public float turn = 3f;
->>>>>>> a333d8b13ae12204280ce4240431b66647b47ba2
+    //Tested for clipping at a about 45degree angle up to 1500 without problems at the current physicupdatesettings
+    public float maxspeed = 700f;
+
+    //about 50 if the turning should be really quick, 30 is a bit slower, everything under 29 seems unusable
+    public float turn = 20f;
+    public float maxturn = 50f;
     //distance the ray travels to check for floor, the lower, the better the performance
     public float checkHeight = 100f;
 
     //controls speed of descend in the air
-    public float gravity = 0.5f;
+    public float gravity = 0.1f;
 
     private float powerInput;
     private float turnInput;
+
+    //Multiplayer
+    //Valid Strings are "Keyboard", "Controller1" & "Controller2"
+    public string inputDevice = "Keyboard";
     
     //Oil Powerup Timer
-    private const float OILFRICT = 0.9f;
+    private const float OILFRICT = 0.005f;
     private float oiltimer = 0f;
     private bool oily = false;
     public float oiltime = 1.0f;
@@ -30,8 +34,8 @@ public class Driving : MonoBehaviour
     private float speedThreshhold = 0.2f;
 
     //Deprecated: Friction gets set through underlaying Physicsmaterial
-    private float angularGrip = 0.7f;
-    private float speedGrip = 0.9f;
+    private float angularGrip = 0.8f;
+    private float speedGrip = 0.8f;
 
 
     private Rigidbody carRigidbody;
@@ -49,13 +53,42 @@ public class Driving : MonoBehaviour
     void Update()
     {
         //Values between 0 and 1
-        //TODO: Config Inputmanager und nutze Inputs für verschiedene Joysticks
-        powerInput = Input.GetAxis("Vertical");
-        turnInput = Input.GetAxis("Horizontal");
+        switch (inputDevice)
+        {
+            case "Keyboard":
+                powerInput = Input.GetAxis("Vertical1");
+                turnInput = Input.GetAxis("Horizontal1");
+                break;
+            case "Controller1":
+                powerInput = Input.GetAxis("Vertical2");
+                turnInput = Input.GetAxis("Horizontal2");
+                break;
+            case "Controller2":
+                powerInput = Input.GetAxis("Vertical3");
+                turnInput = Input.GetAxis("Horizontal3");
+                break;
+        }
     }
 
     void FixedUpdate()
     {
+        castRayDown();
+        updateVelocity();
+        
+
+        if (oily)
+        {
+            oiltimer += Time.fixedDeltaTime;
+            if (oiltimer > oiltime)
+            {
+                oily = false;
+            }
+        }
+
+    }
+
+    //Everything that has to do with surface under the Car: Gravity, friction, oil, rotation
+    void castRayDown() {
         //Ray gets shot down to keep stable position on the road
         Ray ray = new Ray(transform.position, new Vector3(0, -1, 0));
         RaycastHit hit;
@@ -81,19 +114,20 @@ public class Driving : MonoBehaviour
                 }
             }
 
-            //Check for physics material to update friction .. 1- so that the friction in editor makes sense
+            //Check for physics material to update friction .. 1- so that the friction-value in editor makes sense
             if (hit.collider.material)
             {
-                if (!oily)
-                {
-                    speedGrip = 1 - hit.collider.material.dynamicFriction;
-                }
                 if (hit.transform.tag == "Oil")
                 {
                     oily = true;
-                    speedGrip = 1-OILFRICT;
+                    speedGrip = 1 - OILFRICT;
+                    oiltimer = 0f;
                 }
-                angularGrip = (1 - hit.collider.material.dynamicFriction) * 0.9f;
+
+                if (!oily)
+                {
+                    speedGrip = 1 - hit.collider.material.dynamicFriction / 5;
+                }
             }
 
             //Car Rotation 
@@ -113,47 +147,61 @@ public class Driving : MonoBehaviour
             transform.position = position;
         }
 
-        //add inputs TODO: rotation nur wenn velocity>0 mach rotaton von velocity abhängig
-        if (carRigidbody.velocity.magnitude > 0)
+    }
+
+    void updateVelocity()
+    {
+        //Beschleunigungskräfte anwenden
+        if (carRigidbody.velocity.magnitude > 1)
         {
             carRigidbody.AddRelativeTorque(0, turnInput * turn, 0f);
+            if (carRigidbody.angularVelocity.magnitude > maxturn)
+            {
+                carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * maxturn;
+            }
         }
         if (!oily)
         {
             carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
+            if (carRigidbody.velocity.magnitude > maxspeed)
+            {
+                carRigidbody.velocity = carRigidbody.velocity.normalized * maxspeed;
+            }
+        }
+        else
+        {
+
+            carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed / 5f);
+            if (carRigidbody.velocity.magnitude > maxspeed)
+            {
+                carRigidbody.velocity = carRigidbody.velocity.normalized * maxspeed;
+            }
         }
 
 
         //grip, so car doesnt spin out of control, 
         if (carRigidbody.angularVelocity.magnitude > 0)
         {
-            if (turnInput == 0)
+
+            carRigidbody.angularVelocity *= angularGrip;
+
+
+            if (carRigidbody.angularVelocity.magnitude < angleThreshhold)
             {
-                carRigidbody.angularVelocity *= angularGrip;
-                if (carRigidbody.angularVelocity.magnitude < angleThreshhold)
-                {
-                    carRigidbody.angularVelocity = new Vector3(0, 0, 0);
-                }
+                carRigidbody.angularVelocity = new Vector3(0, 0, 0);
             }
+            //carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized*((carRigidbody.velocity.magnitude*carRigidbody.angularVelocity.magnitude)/maxspeed);
         }
 
         if (carRigidbody.velocity.magnitude > 0)
         {
+
             carRigidbody.velocity *= speedGrip;
+
             if (carRigidbody.velocity.magnitude < speedThreshhold)
             {
                 carRigidbody.velocity = new Vector3(0, 0, 0);
             }
         }
-
-        if (oily)
-        {
-            oiltimer += Time.fixedDeltaTime;
-            if (oiltimer > oiltime)
-            {
-                oily = false;
-            }
-        }
-
     }
 }

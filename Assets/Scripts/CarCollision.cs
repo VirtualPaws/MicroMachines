@@ -29,13 +29,13 @@ public class CarCollision : MonoBehaviour {
             if(ishit)
             {
                 Rigidbody otherPlayer = col.gameObject.GetComponent<Rigidbody>();
-                Vector3 relVel = thisRigidBody.velocity - otherPlayer.velocity;
+                if (col.attachedRigidbody.Equals(otherPlayer))
+                {
+                    Vector3 relVel = thisRigidBody.velocity - otherPlayer.velocity;
 
-                otherPlayer.AddForceAtPosition(relVel*forceMult, hit.point); 
-                Debug.Log("Player hit");
-
+                    otherPlayer.AddForceAtPosition(relVel*forceMult, hit.point); 
+                }
             }
-            Debug.Log(ishit);
         }
     }
 }

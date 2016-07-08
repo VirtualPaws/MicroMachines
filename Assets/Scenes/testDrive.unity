@@ -2151,7 +2151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9d8d880d5a79e4697de31c23a65868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
+  speed: 500
   turn: 1.5
   checkHeight: 100
   angularGrip: 0.7
@@ -4054,7 +4054,6 @@ GameObject:
   - 4: {fileID: 2063602323}
   - 54: {fileID: 2063602319}
   - 114: {fileID: 2063602324}
-  - 114: {fileID: 2063602320}
   - 136: {fileID: 2063602321}
   - 114: {fileID: 2063602322}
   - 136: {fileID: 2063602325}
@@ -4080,18 +4079,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &2063602320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2063602318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baf1682d9b83bad43be83871aeacfd99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engineSound: {fileID: 2069101204}
 --- !u!136 &2063602321
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4113,9 +4100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2063602318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d108ad722166c07428c651f6837d2810, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c6f72297edac524eb0ee530ce99ce6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceMult: 300
 --- !u!4 &2063602323
 Transform:
   m_ObjectHideFlags: 0
@@ -4142,10 +4130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
-  turn: 2
-  checkHeight: 100
-  gravity: 0.05
+  speed: 400
+  maxspeed: 500
+  turn: 40
+  maxturn: 50
+  checkHeight: 1000
+  gravity: 0.01
+  inputDevice: Keyboard
   oiltime: 1
 --- !u!136 &2063602325
 CapsuleCollider:
