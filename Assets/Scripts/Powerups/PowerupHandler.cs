@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class PowerupHandler : MonoBehaviour {
     public KeyCode powerupKey = KeyCode.RightControl;
+    public bool debugFiring = false;
 
-    private bool canPickup = true;
-    private bool hasPowerup = false;
+    public bool canPickup = true;
+    public bool hasPowerup = false;
 
     public IPowerUp powerup = null;
 
@@ -27,7 +28,7 @@ public class PowerupHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (hasPowerup && Input.GetKeyDown(powerupKey))
+        if (debugFiring && hasPowerup && Input.GetKeyDown(powerupKey))
         {
             firePowerUp();
         }
@@ -96,13 +97,14 @@ public class PowerupHandler : MonoBehaviour {
 
     public void firePowerUp()
     {
-        if (powerup != null)
+        if (powerup != null && hasPowerup)
         {
             powerup.fire(gameObject);
         }
         hasPowerup = false;
         canPickup = true;
     }
+
     public void addDelayedBehavior(IDelayedBehavior behavior) {
         delayedActions.Add(behavior);
     }

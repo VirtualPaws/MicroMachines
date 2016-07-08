@@ -8,10 +8,20 @@ public class LocalChoiceManager : MonoBehaviour {
     public List<GameObject> carPrefabs;
     public GameObject carHolder;
     public GameObject carHolder2;
+
+    public KeyCode enterKey = KeyCode.Return;
+    private string enterButton = "Vertical";
+
     private List<GameObject> cars;
     private List<GameObject> cars2;
     private int indexP1 = 0;
     private int indexP2 = 1;
+
+    public bool player1HasControls = false;
+    public bool player2HasControls = false;
+
+    public string player1Controls;
+    public string player2Controls;
 
     private GameObject picked;
     private GameObject picked2;
@@ -43,8 +53,48 @@ public class LocalChoiceManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+    void Update()
+    {
+        if (!player1HasControls)
+        {
+            if (Input.GetKeyDown(enterKey))
+            {
+                player1Controls = "Keyboard";
+                player1HasControls = true;
+            }
+            else if (Input.GetButtonDown(enterButton + "2"))
+            {
+                player1Controls = "Controller1";
+                player1HasControls = true;
+            }
+            else if (Input.GetButtonDown(enterButton + "3"))
+            {
+                player1Controls = "Controller2";
+                player1HasControls = true;
+            }
+        }
+        else if(!player2HasControls)
+        {
+            if (Input.GetKeyDown(enterKey) && !player1Controls.Equals("Keyboard"))
+            {
+                player2Controls = "Keyboard";
+                player2HasControls = true;
+            }
+            else if (Input.GetButtonDown(enterButton+"2") && !player1Controls.Equals("Controller1"))
+            {
+                player2Controls = "Controller1";
+                player2HasControls = true;
+            }
+            else if (Input.GetButtonDown(enterButton + "3") && !player1Controls.Equals("Controller2"))
+            {
+                player2Controls = "Controller2";
+                player2HasControls = true;
+            }
+        }
+        if (player1HasControls && player2HasControls)
+        {
+            begin();
+        }
     }
 
     public void switchCarP1Right()
@@ -120,5 +170,13 @@ public class LocalChoiceManager : MonoBehaviour {
     public bool isCameraMode3rdPerson()
     {
         return !classicCameraMode;
+    }
+
+    public List<string> getControls()
+    {
+        List<string> controls = new List<string>();
+        controls.Add(player1Controls);
+        controls.Add(player2Controls);
+        return controls;
     }
 }

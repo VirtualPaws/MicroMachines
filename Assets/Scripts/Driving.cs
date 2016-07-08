@@ -58,14 +58,26 @@ public class Driving : MonoBehaviour
             case "Keyboard":
                 powerInput = Input.GetAxis("Vertical1");
                 turnInput = Input.GetAxis("Horizontal1");
+                if (Input.GetButtonDown("Powerup1"))
+                {
+                    GetComponent<PowerupHandler>().firePowerUp();
+                }
                 break;
             case "Controller1":
                 powerInput = Input.GetAxis("Vertical2");
                 turnInput = Input.GetAxis("Horizontal2");
+                if (Input.GetButtonDown("Powerup2"))
+                {
+                    GetComponent<PowerupHandler>().firePowerUp();
+                }
                 break;
             case "Controller2":
                 powerInput = Input.GetAxis("Vertical3");
                 turnInput = Input.GetAxis("Horizontal3");
+                if (Input.GetButtonDown("Powerup3"))
+                {
+                    GetComponent<PowerupHandler>().firePowerUp();
+                }
                 break;
         }
     }
@@ -94,7 +106,7 @@ public class Driving : MonoBehaviour
         RaycastHit hit;
         Vector3 position;
 
-        if (Physics.Raycast(ray, out hit, checkHeight, layerMask))
+        if (Physics.Raycast(ray, out hit, layerMask))
         {
             //stick car to the floor
             position = hit.point;

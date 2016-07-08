@@ -1753,6 +1753,10 @@ Prefab:
       propertyPath: m_Name
       value: Frame
       objectReference: {fileID: 0}
+    - target: {fileID: 129078, guid: 924347795c037a448aac8d408639a730, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 924347795c037a448aac8d408639a730, type: 2}
   m_IsPrefabParent: 0
@@ -3143,12 +3147,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carPrefabs:
-  - {fileID: 179670, guid: 6d4857de4835fea4288aa28c6b750c4d, type: 2}
-  - {fileID: 167616, guid: 4a41e4cc8ca93b74584fab8907788927, type: 2}
-  - {fileID: 199308, guid: f3738b2b71d2a8f4c998912b44236fc9, type: 2}
+  - {fileID: 179670, guid: 60e90bf1278194e4bb84df8fccfe53f0, type: 2}
+  - {fileID: 167616, guid: c9ca57f09b57d394f881beb2787eb529, type: 2}
+  - {fileID: 199308, guid: 53b19373e9210884d9f8f0750d982a25, type: 2}
   carHolder: {fileID: 1138950054}
   carHolder2: {fileID: 1851277878}
-  classicCameraMode: 1
+  enterKey: 13
+  enterButton: button 0
 --- !u!4 &1574066442
 Transform:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class LocalCarSpawner : MonoBehaviour {
         players = new List<GameObject>();
         List<GameObject> picks = choiceManager.GetComponent<LocalChoiceManager>().getPicks();
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Spawnpunkt");
+        List<string> controls = choiceManager.GetComponent<LocalChoiceManager>().getControls();
         int i = -1;
         foreach (GameObject pick in picks)
         {
@@ -27,6 +28,7 @@ public class LocalCarSpawner : MonoBehaviour {
             spawn.transform.position = spawnPoints[i % spawnPoints.Length].transform.position;
             spawn.GetComponent<Driving>().enabled = true;
             spawn.name = "Player" + (i+1);
+            spawn.GetComponent<Driving>().inputDevice = controls[i % controls.Count];
             players.Add(spawn);
         }
         Destroy(choiceManager);

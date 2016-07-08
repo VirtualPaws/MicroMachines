@@ -143,12 +143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
-  turn: 4
-  checkHeight: 100
-  gravity: 0.5
-  angleThreshhold: 0.2
-  speedThreshhold: 0.2
+  speed: 400
+  maxspeed: 500
+  turn: 50
+  maxturn: 60
+  checkHeight: 1000
+  gravity: 0.01
+  inputDevice: Keyboard
+  oiltime: 1
 --- !u!114 &11473476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupKey: 305
+  debugFiring: 0
   speedBoostSystem: {fileID: 19822826, guid: d26ad5b148fb14b4199b42ed466ed41a, type: 2}
   spawning: 0
   spawnInterval: 0.1
