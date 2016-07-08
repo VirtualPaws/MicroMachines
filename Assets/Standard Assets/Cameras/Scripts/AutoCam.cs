@@ -35,7 +35,16 @@ namespace UnityStandardAssets.Cameras
             if (!(deltaTime > 0) || my_Target == null)
             {
 				allCars = GameObject.FindGameObjectsWithTag ("Car");
-				my_Target = allCars [0];
+				//my_Target = allCars [0];
+
+				if (this.gameObject.name == "MultipurposeCameraRig_1") {
+					my_Target = allCars [0];
+					Debug.Log ("if 1");
+				}
+				else if (this.gameObject.name == "MultipurposeCameraRig_2") {
+					my_Target = allCars [1];
+					Debug.Log ("if 2");
+				}
                // return;
             }
 
