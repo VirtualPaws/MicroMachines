@@ -1423,9 +1423,9 @@ GameObject:
   - 33: {fileID: 143019963}
   - 64: {fileID: 143019962}
   - 23: {fileID: 143019961}
-  m_Layer: 4
+  m_Layer: 8
   m_Name: Water (1)
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13439,9 +13439,9 @@ GameObject:
   - 33: {fileID: 1754259102}
   - 64: {fileID: 1754259101}
   - 23: {fileID: 1754259100}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
