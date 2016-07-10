@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 public class RaceManager : MonoBehaviour {
 
-    private List<int> scoreByPlayerIndex;
+    public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
     private List<GameObject> playersThroughCheckpoint;
+    private float timeStarted = 0;
+
+    public float timeLimit = 5; //seconds
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +20,32 @@ public class RaceManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (racingFor != null)
+        {
+            if (Time.time > timeStarted + timeLimit)
+            {
+                foreach (GameObject player in playersThroughCheckpoint)
+                {
+                    if (player.name.Equals("Player1"))
+                    {
+                        incrementPlayerScore(0, 1);
+                    }
+                    if (player.name.Equals("Player2"))
+                    {
+                        incrementPlayerScore(1, 1);
+                    }
+                    if (player.name.Equals("Player3"))
+                    {
+                        incrementPlayerScore(2, 1);
+                    }
+                    if (player.name.Equals("Player4"))
+                    {
+                        incrementPlayerScore(3, 1);
+                    }
+                }
+                racingFor = null;
+            }
+        }
 	}
 
     public void incrementPlayerScore(int playerIndex, int scoreIncrement)
@@ -46,6 +74,7 @@ public class RaceManager : MonoBehaviour {
             racingFor = checkPoint;
             playersThroughCheckpoint = new List<GameObject>();
             playersThroughCheckpoint.Add(player);
+            timeStarted = Time.time;
         }
         else if (racingFor == checkPoint && !playersThroughCheckpoint.Contains(player))
         {
