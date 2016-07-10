@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class GUIMultiplayer : MonoBehaviour {
 
-
 	public GameObject bomb;
 	public GameObject flask;
 	public GameObject lightning;
@@ -18,18 +17,18 @@ public class GUIMultiplayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//score textzeug
 		score = textfield2.GetComponent<UnityEngine.UI.Text> ();
 		scoreShadow = textfield1.GetComponent<UnityEngine.UI.Text> ();
 		playerScore = 0;
-
 		refreshScore ();
 
+		//power up zeug
 		bomb.SetActive (false);
 		flask.SetActive (false);
 		lightning.SetActive (false);
 	}
-
-
+		
 	public void refreshScore(){
 		score.text = "" + playerScore;
 		scoreShadow.text = "" + playerScore;
@@ -75,5 +74,5 @@ public class GUIMultiplayer : MonoBehaviour {
 		flask.SetActive (false);
 		lightning.SetActive (false);
 	}
-		
+				
 }
