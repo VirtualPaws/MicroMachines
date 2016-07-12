@@ -20,9 +20,9 @@ public class Driving : MonoBehaviour
     private float turnInput;
 
     //Multiplayer
-    //Valid Strings are "Keyboard", "Controller1" & "Controller2"
+    //Valid Strings are "Keyboard", "Keyboard2", "Controller1" & "Controller2"
     public string inputDevice = "Keyboard";
-    
+
     //Oil Powerup Timer
     private const float OILFRICT = 0.005f;
     private float oiltimer = 0f;
@@ -44,6 +44,11 @@ public class Driving : MonoBehaviour
     //Physics Layer shenanigans
     int layerMask = 1 << 8; //Layer 8 = Groundstuff
 
+    private bool stuckInWater = false;
+    private bool drowning = false;
+    private float drowntimer = 0f;
+    private Vector2 safetyNet;
+
     void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
@@ -59,6 +64,14 @@ public class Driving : MonoBehaviour
                 powerInput = Input.GetAxis("Vertical1");
                 turnInput = Input.GetAxis("Horizontal1");
                 if (Input.GetButtonDown("Powerup1"))
+                {
+                    GetComponent<PowerupHandler>().firePowerUp();
+                }
+                break;
+            case "Keyboard2":
+                powerInput = Input.GetAxis("Vertical4");
+                turnInput = Input.GetAxis("Horizontal4");
+                if (Input.GetButtonDown("Powerup4"))
                 {
                     GetComponent<PowerupHandler>().firePowerUp();
                 }
@@ -85,9 +98,24 @@ public class Driving : MonoBehaviour
     void FixedUpdate()
     {
         castRayDown();
-        updateVelocity();
-        
+        if (!drowning)
+        {
+            updateVelocity();
+        }
+        else
+        {
+            carRigidbody.velocity = new Vector3(0, 0, 0);
+        }
 
+        if (drowning)
+        {
+            drowntimer += Time.fixedDeltaTime;
+            if (drowntimer > 1)
+            {
+                drowning = false;
+                drowntimer = 0;
+            }
+        }
         if (oily)
         {
             oiltimer += Time.fixedDeltaTime;
@@ -100,7 +128,8 @@ public class Driving : MonoBehaviour
     }
 
     //Everything that has to do with surface under the Car: Gravity, friction, oil, rotation
-    void castRayDown() {
+    void castRayDown()
+    {
         //Ray gets shot down to keep stable position on the road
         Ray ray = new Ray(transform.position, new Vector3(0, -1, 0));
         RaycastHit hit;
@@ -111,10 +140,25 @@ public class Driving : MonoBehaviour
             //stick car to the floor
             position = hit.point;
             position.y += 0.5f;
-            if (transform.position.y < position.y)
+            if (drowning)
             {
-                transform.position = position;
+                Vector2 net = new Vector2(transform.position.x, transform.position.z);
+                if (!safetyNet.Equals(net))
+                {
+                    drowning = false;
+                }
+                else
+                {
+                    position = transform.position;
+                    position.y -= 0.05f;
+                    transform.position = position;
+                    safetyNet = net;
+                }
+            }
+            else if (transform.position.y < position.y)
+            {
                 fallingspeed = 0;
+                transform.position = position;
             }
             else if (transform.position.y > position.y)
             {
@@ -123,6 +167,11 @@ public class Driving : MonoBehaviour
                 {
                     position.y = transform.position.y - fallingspeed;
                     transform.position = position;
+                }
+                else if (stuckInWater)
+                {
+                    drowning = true;
+                    safetyNet = new Vector2(transform.position.x, transform.position.z);
                 }
             }
 
@@ -134,6 +183,15 @@ public class Driving : MonoBehaviour
                     oily = true;
                     speedGrip = 1 - OILFRICT;
                     oiltimer = 0f;
+                }
+
+                if (hit.transform.tag == "Water")
+                {
+                    stuckInWater = true;
+                }
+                else
+                {
+                    stuckInWater = false;
                 }
 
                 if (!oily)
@@ -163,6 +221,7 @@ public class Driving : MonoBehaviour
 
     void updateVelocity()
     {
+
         //Beschleunigungskräfte anwenden
         if (carRigidbody.velocity.magnitude > 1)
         {
@@ -172,6 +231,7 @@ public class Driving : MonoBehaviour
                 carRigidbody.angularVelocity = carRigidbody.angularVelocity.normalized * maxturn;
             }
         }
+
         if (!oily)
         {
             carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
@@ -182,14 +242,12 @@ public class Driving : MonoBehaviour
         }
         else
         {
-
             carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed / 5f);
             if (carRigidbody.velocity.magnitude > maxspeed)
             {
                 carRigidbody.velocity = carRigidbody.velocity.normalized * maxspeed;
             }
         }
-
 
         //grip, so car doesnt spin out of control, 
         if (carRigidbody.angularVelocity.magnitude > 0)

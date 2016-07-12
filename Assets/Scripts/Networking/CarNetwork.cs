@@ -29,6 +29,10 @@ public class CarNetwork : NetworkBehaviour {
 
     public void Initialise()
     {
+        if (owner == null)
+        {
+            return;
+        }
         ClientSidePlayer player = (ClientSidePlayer)owner.GetComponent(typeof(ClientSidePlayer));
         if (owner != null && player.isLocalPlayer)
         {

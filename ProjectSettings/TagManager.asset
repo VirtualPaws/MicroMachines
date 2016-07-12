@@ -8,6 +8,8 @@ TagManager:
   - Spawnpunkt
   - ShootingDummy
   - Oil
+  - Checkpoint
+  - Water
   layers:
   - Default
   - TransparentFX
