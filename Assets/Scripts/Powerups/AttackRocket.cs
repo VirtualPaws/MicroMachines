@@ -133,12 +133,16 @@ public class AttackRocket : MonoBehaviour
         possibleTargets.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("Car")));
         foreach (GameObject possibleTarget in possibleTargets)
         {
-            Driving dr = possibleTarget.GetComponent<Driving>();
+            if ((transform.position - possibleTarget.transform.position).magnitude > explosionRadius)
+            {
+                continue;
+            }
+            /*Driving dr = possibleTarget.GetComponent<Driving>();
             if (dr != null)
             {
                 dr.enabled = false;
-                possibleTarget.GetComponent<PowerupHandler>().addDelayedBehavior(new DelayedControlReset().withTimer(2).forScript(dr));
-            }
+                possibleTarget.GetComponent<PowerupHandler>().addDelayedBehavior(new DelayedControlReset().withTimer(1).forScript(dr));
+            }*/
             possibleTarget.GetComponent<Rigidbody>().AddExplosionForce(explosionForce*10, transform.position + explosionCorrection, explosionRadius);
         }
         blastInst.Stop();

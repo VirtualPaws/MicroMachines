@@ -156,7 +156,7 @@ public class RaceManager : MonoBehaviour {
 
                 if (playersKO.Contains(p))
                 {
-                    continue;
+                    //continue;
                 }
                 p.GetComponent<PointIndicatorParticles>().fireAwardParticles();
                 if (p.name.Equals("Player1"))
