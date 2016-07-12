@@ -29,7 +29,7 @@ public class RaceManager : MonoBehaviour {
             if (Time.time > timeStarted + timeLimit)
             {
                 racingFor = null;
-                int multiplyer = playersThroughCheckpoint.Count - GameObject.FindGameObjectsWithTag("Car").Length;
+                int multiplyer = GameObject.FindGameObjectsWithTag("Car").Length - playersThroughCheckpoint.Count;
                 foreach (GameObject player in playersThroughCheckpoint)
                 {
                     if (playersKO.Contains(player))
