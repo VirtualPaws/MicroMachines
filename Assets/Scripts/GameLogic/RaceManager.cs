@@ -14,7 +14,7 @@ public class RaceManager : MonoBehaviour {
     private float timeStarted = 0;
     private int pointsForCheckPointRace = 0;
     private int pointsForKO = 100;
-    private int pointsToWin = 100;
+    private int pointsToWin = 300;
 
     private bool player1Wins;
     private bool gameOver = false;
@@ -55,7 +55,7 @@ public class RaceManager : MonoBehaviour {
                 {
                     if (playersKO.Contains(player))
                     {
-                        continue;
+                        //continue;
                     }
                     if (player.name.Equals("Player1"))
                     {
@@ -148,6 +148,7 @@ public class RaceManager : MonoBehaviour {
     public void KOplayer(GameObject player)
     {
         playersKO.Add(player);
+        player.GetComponent<PointIndicatorParticles>().firePenaltyParticles();
         //player.GetComponent<Driving>().enabled = false;
         foreach (GameObject p in GameObject.FindGameObjectsWithTag("Car"))
         {
@@ -157,6 +158,7 @@ public class RaceManager : MonoBehaviour {
                 {
                     continue;
                 }
+                p.GetComponent<PointIndicatorParticles>().fireAwardParticles();
                 if (p.name.Equals("Player1"))
                 {
                     incrementPlayerScore(0, pointsForKO);

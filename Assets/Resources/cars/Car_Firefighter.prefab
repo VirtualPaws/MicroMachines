@@ -32,6 +32,7 @@ GameObject:
   - 54: {fileID: 5454734}
   - 136: {fileID: 13675140}
   - 114: {fileID: 11436592}
+  - 114: {fileID: 11425778}
   m_Layer: 10
   m_Name: Car_Firefighter
   m_TagString: Car
@@ -131,6 +132,19 @@ MonoBehaviour:
   gravity: 0.01
   inputDevice: Keyboard
   oiltime: 1
+--- !u!114 &11425778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4734192bdd6a32344a84b94d0b7b6955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  awardParticles: {fileID: 19856704, guid: ba4f7727621c8404bb6a08af3cc84a6c, type: 2}
+  penaltyParticles: {fileID: 19863442, guid: f6bbb11746144c94eb7655158bb17b85, type: 2}
 --- !u!114 &11436592
 MonoBehaviour:
   m_ObjectHideFlags: 1
