@@ -18,8 +18,8 @@ public class ChooseCam : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire3")) {
 			toggleWindow ();
 		}
-		if (open && Input.GetButtonDown ("Fire0")) {
-			
+		if (open && Input.GetButtonDown ("Fire2")) {
+			Debug.Log ("auswählen geht noch nicht");
 		}
 	}
 	public void toggleWindow(){
