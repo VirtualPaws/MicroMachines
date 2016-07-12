@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 497164}
   - 65: {fileID: 6576172}
   - 114: {fileID: 11483660}
-  m_Layer: 10
+  m_Layer: 4
   m_Name: KnockoutZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
