@@ -46,6 +46,9 @@ public class Driving : MonoBehaviour
 
     private bool stuckInWater = false;
     private bool drowning = false;
+
+    public bool canDrive = true;
+
     private float drowntimer = 0f;
     private Vector2 safetyNet;
 
@@ -58,40 +61,44 @@ public class Driving : MonoBehaviour
     void Update()
     {
         //Values between 0 and 1
-        switch (inputDevice)
+        if (canDrive)
         {
-            case "Keyboard":
-                powerInput = Input.GetAxis("Vertical1");
-                turnInput = Input.GetAxis("Horizontal1");
-                if (Input.GetButtonDown("Powerup1"))
-                {
-                    GetComponent<PowerupHandler>().firePowerUp();
-                }
-                break;
-            case "Keyboard2":
-                powerInput = Input.GetAxis("Vertical4");
-                turnInput = Input.GetAxis("Horizontal4");
-                if (Input.GetButtonDown("Powerup4"))
-                {
-                    GetComponent<PowerupHandler>().firePowerUp();
-                }
-                break;
-            case "Controller1":
-                powerInput = Input.GetAxis("Vertical2");
-                turnInput = Input.GetAxis("Horizontal2");
-                if (Input.GetButtonDown("Powerup2"))
-                {
-                    GetComponent<PowerupHandler>().firePowerUp();
-                }
-                break;
-            case "Controller2":
-                powerInput = Input.GetAxis("Vertical3");
-                turnInput = Input.GetAxis("Horizontal3");
-                if (Input.GetButtonDown("Powerup3"))
-                {
-                    GetComponent<PowerupHandler>().firePowerUp();
-                }
-                break;
+
+            switch (inputDevice)
+            {
+                case "Keyboard":
+                    powerInput = Input.GetAxis("Vertical1");
+                    turnInput = Input.GetAxis("Horizontal1");
+                    if (Input.GetButtonDown("Powerup1"))
+                    {
+                        GetComponent<PowerupHandler>().firePowerUp();
+                    }
+                    break;
+                case "Keyboard2":
+                    powerInput = Input.GetAxis("Vertical4");
+                    turnInput = Input.GetAxis("Horizontal4");
+                    if (Input.GetButtonDown("Powerup4"))
+                    {
+                        GetComponent<PowerupHandler>().firePowerUp();
+                    }
+                    break;
+                case "Controller1":
+                    powerInput = Input.GetAxis("Vertical2");
+                    turnInput = Input.GetAxis("Horizontal2");
+                    if (Input.GetButtonDown("Powerup2"))
+                    {
+                        GetComponent<PowerupHandler>().firePowerUp();
+                    }
+                    break;
+                case "Controller2":
+                    powerInput = Input.GetAxis("Vertical3");
+                    turnInput = Input.GetAxis("Horizontal3");
+                    if (Input.GetButtonDown("Powerup3"))
+                    {
+                        GetComponent<PowerupHandler>().firePowerUp();
+                    }
+                    break;
+            }
         }
     }
 
