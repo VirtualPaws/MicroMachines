@@ -137,12 +137,12 @@ public class AttackRocket : MonoBehaviour
             {
                 continue;
             }
-            Driving dr = possibleTarget.GetComponent<Driving>();
+            /*Driving dr = possibleTarget.GetComponent<Driving>();
             if (dr != null)
             {
                 dr.enabled = false;
                 possibleTarget.GetComponent<PowerupHandler>().addDelayedBehavior(new DelayedControlReset().withTimer(1).forScript(dr));
-            }
+            }*/
             possibleTarget.GetComponent<Rigidbody>().AddExplosionForce(explosionForce*10, transform.position + explosionCorrection, explosionRadius);
         }
         blastInst.Stop();
