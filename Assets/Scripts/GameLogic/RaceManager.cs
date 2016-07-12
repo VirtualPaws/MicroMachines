@@ -6,6 +6,7 @@ public class RaceManager : MonoBehaviour {
 
     public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
+    private RacingCheckpoint lastCheckPoint;
     private List<GameObject> playersThroughCheckpoint;
     private List<GameObject> playersKO;
     private float timeStarted = 0;
@@ -20,6 +21,7 @@ public class RaceManager : MonoBehaviour {
         scoreByPlayerIndex = new List<int>();
         scoreByPlayerIndex.Add(0);
         scoreByPlayerIndex.Add(0);
+        lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
 	}
 	
 	// Update is called once per frame
@@ -59,6 +61,10 @@ public class RaceManager : MonoBehaviour {
                 }
             }
         }
+        if (GameObject.FindGameObjectsWithTag("Car").Length == playersKO.Count)
+        {
+            reSpawnKOdPlayersAt(lastCheckPoint);
+        }
 	}
 
     public void incrementPlayerScore(int playerIndex, int scoreIncrement)
@@ -81,6 +87,7 @@ public class RaceManager : MonoBehaviour {
 
     public void hitCheckpoint(RacingCheckpoint checkPoint, GameObject player)
     {
+        lastCheckPoint = checkPoint;
         if (racingFor == null)
         {
             //Begin a race for the checkpoint
@@ -148,5 +155,6 @@ public class RaceManager : MonoBehaviour {
             playersKO[1].transform.position = respawn2.position;
             playersKO[1].transform.rotation = respawn2.rotation;
         }
+        playersKO = new List<GameObject>();
     }
 }
