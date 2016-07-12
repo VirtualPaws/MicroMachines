@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 436890}
   - 33: {fileID: 3349840}
   - 23: {fileID: 2372002}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Car_Firefighter_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 54: {fileID: 5454734}
   - 136: {fileID: 13675140}
   - 114: {fileID: 11436592}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Car_Firefighter
   m_TagString: Car
   m_Icon: {fileID: 0}
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupKey: 305
   debugFiring: 0
+  canPickup: 1
+  hasPowerup: 0
   speedBoostSystem: {fileID: 19822826, guid: d26ad5b148fb14b4199b42ed466ed41a, type: 2}
   spawning: 0
   spawnInterval: 0.1

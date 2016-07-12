@@ -74,16 +74,20 @@ public class PowerupHandler : MonoBehaviour {
 
     public void triggerPickup()
     {
+        GUIMultiplayer gui = GameObject.Find("Canvas").transform.Find(gameObject.name).GetComponent<GUIMultiplayer>();
         switch (Random.Range(0, 3))
         {
             case 0:
                 powerup = new RocketPowerUp();
+                gui.activatePowerUp("bomb", true);
                 break;
             case 1:
                 powerup = new SpeedBoostPowerUp();
+                gui.activatePowerUp("speedboost", true);
                 break;
             case 2:
                 powerup = new OilSlickPowerUp();
+                gui.activatePowerUp("oil", true);
                 break;
         }
         hasPowerup = true;
@@ -103,6 +107,8 @@ public class PowerupHandler : MonoBehaviour {
         }
         hasPowerup = false;
         canPickup = true;
+        GUIMultiplayer gui = GameObject.Find("Canvas").transform.Find(gameObject.name).GetComponent<GUIMultiplayer>();
+        gui.deactivateAll();
     }
 
     public void addDelayedBehavior(IDelayedBehavior behavior) {

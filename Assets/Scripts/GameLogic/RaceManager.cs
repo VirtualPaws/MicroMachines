@@ -7,12 +7,16 @@ public class RaceManager : MonoBehaviour {
     public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
     private List<GameObject> playersThroughCheckpoint;
+    private List<GameObject> playersKO;
     private float timeStarted = 0;
+    private int pointsForCheckPointRace = 100;
+    private int pointsForKO = 150;
 
     public float timeLimit = 5; //seconds
 
 	// Use this for initialization
 	void Start () {
+        playersKO = new List<GameObject>();
         scoreByPlayerIndex = new List<int>();
         scoreByPlayerIndex.Add(0);
         scoreByPlayerIndex.Add(0);
@@ -24,26 +28,35 @@ public class RaceManager : MonoBehaviour {
         {
             if (Time.time > timeStarted + timeLimit)
             {
+                racingFor = null;
+                int multiplyer = playersThroughCheckpoint.Count - GameObject.FindGameObjectsWithTag("Car").Length;
                 foreach (GameObject player in playersThroughCheckpoint)
                 {
+                    if (playersKO.Contains(player))
+                    {
+                        continue;
+                    }
                     if (player.name.Equals("Player1"))
                     {
-                        incrementPlayerScore(0, 1);
+                        incrementPlayerScore(0, pointsForCheckPointRace * multiplyer);
+                        GameObject.Find("Canvas").transform.Find("Player1").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(0));
                     }
                     if (player.name.Equals("Player2"))
                     {
-                        incrementPlayerScore(1, 1);
+                        incrementPlayerScore(1, pointsForCheckPointRace * multiplyer);
+                        GameObject.Find("Canvas").transform.Find("Player2").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(1));
                     }
                     if (player.name.Equals("Player3"))
                     {
-                        incrementPlayerScore(2, 1);
+                        incrementPlayerScore(2, pointsForCheckPointRace * multiplyer);
+                        GameObject.Find("Canvas").transform.Find("Player3").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(2));
                     }
                     if (player.name.Equals("Player4"))
                     {
-                        incrementPlayerScore(3, 1);
+                        incrementPlayerScore(3, pointsForCheckPointRace * multiplyer);
+                        GameObject.Find("Canvas").transform.Find("Player4").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(3));
                     }
                 }
-                racingFor = null;
             }
         }
 	}
@@ -85,6 +98,55 @@ public class RaceManager : MonoBehaviour {
                 //All players have reached the checkpoint in time. Reset it all and wait for the next checkpoint to be hit.
                 racingFor = null;
             }
+        }
+    }
+
+    public void KOplayer(GameObject player)
+    {
+        playersKO.Add(player);
+        //player.GetComponent<Driving>().enabled = false;
+        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Car"))
+        {
+            if (p != player) {
+
+                if (playersKO.Contains(p))
+                {
+                    continue;
+                }
+                if (p.name.Equals("Player1"))
+                {
+                    incrementPlayerScore(0, pointsForKO);
+                    GameObject.Find("Canvas").transform.Find("Player1").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(0));
+                }
+                if (p.name.Equals("Player2"))
+                {
+                    incrementPlayerScore(1, pointsForKO);
+                    GameObject.Find("Canvas").transform.Find("Player2").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(1));
+                }
+                if (p.name.Equals("Player3"))
+                {
+                    incrementPlayerScore(2, pointsForKO);
+                    GameObject.Find("Canvas").transform.Find("Player3").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(2));
+                }
+                if (p.name.Equals("Player4"))
+                {
+                    incrementPlayerScore(3, pointsForKO);
+                    GameObject.Find("Canvas").transform.Find("Player4").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(3));
+                }
+            }
+        }
+    }
+
+    public void reSpawnKOdPlayersAt(RacingCheckpoint checkpoint)
+    {
+        Transform respawn1 = checkpoint.transform.Find("Respawn1");
+        Transform respawn2 = checkpoint.transform.Find("Respawn2");
+        if (playersKO.Count > 1)
+        {
+            playersKO[0].transform.position = respawn1.position;
+            playersKO[0].transform.rotation = respawn1.rotation;
+            playersKO[1].transform.position = respawn2.position;
+            playersKO[1].transform.rotation = respawn2.rotation;
         }
     }
 }
