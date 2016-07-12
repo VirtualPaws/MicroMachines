@@ -15,7 +15,7 @@ public class PowerupHandler : MonoBehaviour {
 
     public bool spawning = false;
     public float spawnInterval = 0.1f; //seconds
-    private float lastSpawned= Time.time;
+    private float lastSpawned = 0;
     public GameObject spawningPrefab;
     public float spawnTimeLeft = -1;
 

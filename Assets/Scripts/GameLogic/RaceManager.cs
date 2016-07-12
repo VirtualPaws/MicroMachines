@@ -7,11 +7,12 @@ public class RaceManager : MonoBehaviour {
     public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
     private RacingCheckpoint lastCheckPoint;
-    private List<GameObject> playersThroughCheckpoint;
-    private List<GameObject> playersKO;
+    private bool postRace = false;
+    public List<GameObject> playersThroughCheckpoint;
+    public List<GameObject> playersKO;
     private float timeStarted = 0;
-    private int pointsForCheckPointRace = 100;
-    private int pointsForKO = 150;
+    private int pointsForCheckPointRace = 0;
+    private int pointsForKO = 100;
 
     public float timeLimit = 5; //seconds
 
@@ -59,6 +60,14 @@ public class RaceManager : MonoBehaviour {
                         GameObject.Find("Canvas").transform.Find("Player4").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(3));
                     }
                 }
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Car"))
+                {
+                    if (!playersThroughCheckpoint.Contains(player))
+                    {
+                        KOplayer(player);
+                    }
+                }
+                postRace = true;
             }
         }
         if (GameObject.FindGameObjectsWithTag("Car").Length == playersKO.Count)
@@ -88,6 +97,10 @@ public class RaceManager : MonoBehaviour {
     public void hitCheckpoint(RacingCheckpoint checkPoint, GameObject player)
     {
         lastCheckPoint = checkPoint;
+        if (postRace)
+        {
+            reSpawnKOdPlayersAt(checkPoint);
+        }
         if (racingFor == null)
         {
             //Begin a race for the checkpoint
@@ -104,6 +117,7 @@ public class RaceManager : MonoBehaviour {
             {
                 //All players have reached the checkpoint in time. Reset it all and wait for the next checkpoint to be hit.
                 racingFor = null;
+                postRace = true;
             }
         }
     }
@@ -155,6 +169,13 @@ public class RaceManager : MonoBehaviour {
             playersKO[1].transform.position = respawn2.position;
             playersKO[1].transform.rotation = respawn2.rotation;
         }
+        else if (playersKO.Count > 0)
+        {
+            playersKO[0].transform.position = respawn1.position;
+            playersKO[0].transform.rotation = respawn1.rotation;
+        }
         playersKO = new List<GameObject>();
+        postRace = false;
+        racingFor = null;
     }
 }
