@@ -32,7 +32,6 @@ public class LocalCarSpawner : MonoBehaviour {
             spawn.GetComponent<Driving>().inputDevice = controls[i % controls.Count];
             players.Add(spawn);
         }
-        Destroy(choiceManager);
 	}
 
     public GameObject getPlayerByNumber(int number)

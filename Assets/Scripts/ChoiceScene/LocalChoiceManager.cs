@@ -29,8 +29,12 @@ public class LocalChoiceManager : MonoBehaviour {
 
     private bool classicCameraMode = false;
 
+    public GameObject rdyBtn;
+
 	public GameObject rdyBtn1;
 	public GameObject rdyBtn2;
+
+    private bool done = false;
 
 
 	// Use this for initialization
@@ -60,6 +64,10 @@ public class LocalChoiceManager : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
+        if (done)
+        {
+            return;
+        }
         if (!player1HasControls)
         {
             if (Input.GetKeyDown(enterKey))
@@ -114,8 +122,7 @@ public class LocalChoiceManager : MonoBehaviour {
 		}
         if (player1HasControls && player2HasControls)
         {
-			
-            begin();
+            rdyBtn.SetActive(true);
         }
     }
 
@@ -181,6 +188,7 @@ public class LocalChoiceManager : MonoBehaviour {
         GameObject picked = carPrefabs[indexP1];
         GameObject picked2 = carPrefabs[indexP2];
 
+        done = true;
         SceneManager.LoadScene("textureScene");
     }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour {
 
@@ -13,11 +14,17 @@ public class RaceManager : MonoBehaviour {
     private float timeStarted = 0;
     private int pointsForCheckPointRace = 0;
     private int pointsForKO = 100;
+    private int pointsToWin = 100;
+
+    private bool player1Wins;
+    private bool gameOver = false;
 
     public float timeLimit = 5; //seconds
 
 	// Use this for initialization
-	void Start () {
+    void Start()
+    {
+        Object.DontDestroyOnLoad(this);
         playersKO = new List<GameObject>();
         scoreByPlayerIndex = new List<int>();
         scoreByPlayerIndex.Add(0);
@@ -27,6 +34,17 @@ public class RaceManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (gameOver)
+        {
+            return;
+        }
+        for (int i = 0; i < scoreByPlayerIndex.Count; i++)
+        {
+            if (scoreByPlayerIndex[i] >= pointsToWin)
+            {
+                endGame();
+            }
+        }
         if (racingFor != null)
         {
             if (Time.time > timeStarted + timeLimit)
@@ -182,5 +200,26 @@ public class RaceManager : MonoBehaviour {
         playersKO = new List<GameObject>();
         postRace = false;
         racingFor = null;
+    }
+
+    public int getTimeLeft()
+    {
+        if (racingFor == null)
+        {
+            return -1;
+        }
+        return (int)(timeStarted - Time.time + timeLimit);
+    }
+
+    public void endGame()
+    {
+        player1Wins = getPlayerScore(0) > getPlayerScore(1);
+        gameOver = true;
+        SceneManager.LoadScene("EndScene");
+    }
+
+    public bool isPlayer1Winner()
+    {
+        return player1Wins;
     }
 }
