@@ -96,10 +96,15 @@ public class RaceManager : MonoBehaviour {
 
     public void hitCheckpoint(RacingCheckpoint checkPoint, GameObject player)
     {
+        if (playersKO.Contains(player))
+        {
+            return;
+        }
         lastCheckPoint = checkPoint;
         if (postRace)
         {
             reSpawnKOdPlayersAt(checkPoint);
+            return;
         }
         if (racingFor == null)
         {
