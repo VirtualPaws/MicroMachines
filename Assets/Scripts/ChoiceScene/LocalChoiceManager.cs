@@ -27,7 +27,7 @@ public class LocalChoiceManager : MonoBehaviour {
     private GameObject picked;
     private GameObject picked2;
 
-    private bool classicCameraMode = true;
+    private bool classicCameraMode = false;
 
 	// Use this for initialization
     void Start()

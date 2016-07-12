@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ChooseCam : MonoBehaviour {
 
@@ -7,6 +8,8 @@ public class ChooseCam : MonoBehaviour {
 	public bool shoulder;
 	public bool open;
 	public GameObject canvasContainer;
+	public Button classicBtn;
+	public Button thrdPersonBtn;
 
 	void Start () {
 		classic = false;
@@ -18,8 +21,20 @@ public class ChooseCam : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire3")) {
 			toggleWindow ();
 		}
-		if (open && Input.GetButtonDown ("Fire2")) {
-			Debug.Log ("auswählen geht noch nicht");
+		if (open) {
+			if (Input.GetAxis ("Horizontal1") > 0) {
+				Debug.Log ("grosser 0");
+				setShoulder ();
+				thrdPersonBtn.Select ();
+			} else if (Input.GetAxis ("Horizontal1") < 0) {
+				Debug.Log ("kleiner 0");
+				setClassic ();
+				classicBtn.Select ();
+			}
+			if (Input.GetButtonDown ("Fire2")) {
+				Debug.Log ("auswählen geht noch nicht");
+				canvasContainer.SetActive (false);
+			}
 		}
 	}
 	public void toggleWindow(){
