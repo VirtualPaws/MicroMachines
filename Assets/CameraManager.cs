@@ -8,9 +8,6 @@ public class CameraManager : MonoBehaviour {
 	public GameObject cam3rdPerson_1;
 	public GameObject cam3rdPerson_2;
 
-	public GameObject gui_classic;
-	public GameObject gui_3rdPerson;
-
 	public GameObject wallColor;
 	public GameObject wallPlane;
 
@@ -30,8 +27,6 @@ public class CameraManager : MonoBehaviour {
 		wallColor.SetActive (!isClassic);
 		wallPlane.SetActive (!isClassic);
 
-		//gui_classic.SetActive (isClassic);
-		//gui_3rdPerson.SetActive (is3rdPerson);
 
 	}
 

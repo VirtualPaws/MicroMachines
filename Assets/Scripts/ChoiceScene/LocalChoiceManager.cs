@@ -27,7 +27,11 @@ public class LocalChoiceManager : MonoBehaviour {
     private GameObject picked;
     private GameObject picked2;
 
-    private bool classicCameraMode = true;
+    private bool classicCameraMode = false;
+
+	public GameObject rdyBtn1;
+	public GameObject rdyBtn2;
+
 
 	// Use this for initialization
     void Start()
@@ -102,8 +106,15 @@ public class LocalChoiceManager : MonoBehaviour {
                 player2HasControls = true;
             }
         }
+		if (player1HasControls) {
+			rdyBtn1.SetActive (true);
+		}
+		if (player2HasControls) {
+			rdyBtn2.SetActive (true);
+		}
         if (player1HasControls && player2HasControls)
         {
+			
             begin();
         }
     }
@@ -190,4 +201,5 @@ public class LocalChoiceManager : MonoBehaviour {
         controls.Add(player2Controls);
         return controls;
     }
+		
 }
