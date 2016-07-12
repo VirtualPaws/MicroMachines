@@ -3153,7 +3153,11 @@ MonoBehaviour:
   carHolder: {fileID: 1138950054}
   carHolder2: {fileID: 1851277878}
   enterKey: 13
-  enterButton: button 0
+  enterKey2: 32
+  player1HasControls: 0
+  player2HasControls: 0
+  player1Controls: 
+  player2Controls: 
 --- !u!4 &1574066442
 Transform:
   m_ObjectHideFlags: 0

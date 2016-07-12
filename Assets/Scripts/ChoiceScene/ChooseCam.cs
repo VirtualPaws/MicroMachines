@@ -13,6 +13,15 @@ public class ChooseCam : MonoBehaviour {
 		shoulder = true;
 		open = false;
 	}
+
+	void Update(){
+		if (Input.GetButtonDown ("Fire3")) {
+			toggleWindow ();
+		}
+		if (open && Input.GetButtonDown ("Fire0")) {
+			
+		}
+	}
 	public void toggleWindow(){
 		open = !open;
 		canvasContainer.SetActive(open);
