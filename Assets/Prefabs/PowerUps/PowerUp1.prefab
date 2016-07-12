@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6592142}
   - 23: {fileID: 2397702}
   - 114: {fileID: 11439858}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpinnyCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ GameObject:
   - 65: {fileID: 6505070}
   - 114: {fileID: 11418726}
   - 82: {fileID: 8278970}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PowerUp1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
