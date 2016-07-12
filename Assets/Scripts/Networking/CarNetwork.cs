@@ -21,9 +21,13 @@ public class CarNetwork : NetworkBehaviour {
         GameObject go = GameObject.Find("Main Camera");
         if (go != null)
         {
-            CameraFollowMultiple nm = (CameraFollowMultiple)go.GetComponent(typeof(CameraFollowMultiple));
-            nm.addObjectToFollowList(gameObject);
             inCamera = true;
+            CameraFollowMultiple nm = go.GetComponent<CameraFollowMultiple>();
+            if (nm == null)
+            {
+                return;
+            }
+            nm.addObjectToFollowList(gameObject);
         }
 	}
 
@@ -68,6 +72,10 @@ public class CarNetwork : NetworkBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (owner == null)
+            {
+                return;
+            }
             ClientSidePlayer player = (ClientSidePlayer)owner.GetComponent(typeof(ClientSidePlayer));
             if (player.isLocalPlayer)
                 player.CmdRespawn(gameObject);

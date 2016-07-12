@@ -32,6 +32,11 @@ public class GUIMultiplayer : MonoBehaviour {
 	public void refreshScore(){
 		score.text = "" + playerScore;
 		scoreShadow.text = "" + playerScore;
+        Canvas.ForceUpdateCanvases();
+        textfield1.SetActive(false);
+        textfield2.SetActive(false);
+        textfield1.SetActive(true);
+        textfield2.SetActive(true);
 	}
 
 	public void setScore(int number){

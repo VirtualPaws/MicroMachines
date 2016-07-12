@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 413452}
   - 33: {fileID: 3372520}
   - 23: {fileID: 2354682}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Car_Taxi_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 54: {fileID: 5456328}
   - 136: {fileID: 13616690}
   - 114: {fileID: 11477194}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Car_Taxi
   m_TagString: Car
   m_Icon: {fileID: 0}
@@ -178,6 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupKey: 305
   debugFiring: 0
+  canPickup: 1
+  hasPowerup: 0
   speedBoostSystem: {fileID: 19822826, guid: d26ad5b148fb14b4199b42ed466ed41a, type: 2}
   spawning: 0
   spawnInterval: 0.1
