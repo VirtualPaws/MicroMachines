@@ -5,21 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour {
 
+    private PlayerGameModel player1;
+    private PlayerGameModel player2;
+
+    private PlayerGameModel leadingPlayer;
+    private PlayerGameModel chasingPlayer;
+
 	public GameObject knockoutManager_1;
 	public GameObject knockoutManager_2;
 
-    public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
     private RacingCheckpoint lastCheckPoint;
     private bool postRace = false;
-    public List<GameObject> playersThroughCheckpoint;
-    public List<GameObject> playersKO;
+
     private float timeStarted = 0;
-    private int pointsForCheckPointRace = 0;
     private int pointsForKO = 100;
     private int pointsToWin = 300;
 
-    private bool player1Wins;
+    private PlayerGameModel winner;
     private bool gameOver = false;
 
     public float timeLimit = 5; //seconds
@@ -29,10 +32,21 @@ public class RaceManager : MonoBehaviour {
     void Start()
     {
         Object.DontDestroyOnLoad(this);
-        playersKO = new List<GameObject>();
-        scoreByPlayerIndex = new List<int>();
-        scoreByPlayerIndex.Add(0);
-        scoreByPlayerIndex.Add(0);
+
+        GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+
+        player1 = new PlayerGameModel();
+        player1.name = "Player1";
+        player1.playerNumber = 1;
+        player1.car = cars[0];
+
+        player2 = new PlayerGameModel();
+        player2.name = "Player2";
+        player2.playerNumber = 2;
+        player2.car = cars[1];
+
+        Debug.Log("set player variables");
+
         lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
 
 		knockoutManager_1 = GameObject.Find ("KnockoutManager_1");
@@ -42,89 +56,71 @@ public class RaceManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (gameOver)
+        if (gameOver || player1 == null || player2 == null)
         {
             return;
         }
-        for (int i = 0; i < scoreByPlayerIndex.Count; i++)
+        if (player1.score >= pointsToWin || player2.score >= pointsToWin)
         {
-            if (scoreByPlayerIndex[i] >= pointsToWin)
-            {
                 endGame();
-            }
         }
         if (racingFor != null)
         {
             if (Time.time > timeStarted + timeLimit)
             {
                 racingFor = null;
-                int multiplyer = GameObject.FindGameObjectsWithTag("Car").Length - playersThroughCheckpoint.Count;
-                foreach (GameObject player in playersThroughCheckpoint)
-                {
-                    if (playersKO.Contains(player))
-                    {
-                        //continue;
-                    }
-                    if (player.name.Equals("Player1"))
-                    {
-                        incrementPlayerScore(0, pointsForCheckPointRace * multiplyer);
-                        GameObject.Find("Canvas").transform.Find("Player1").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(0));
-                    }
-                    if (player.name.Equals("Player2"))
-                    {
-                        incrementPlayerScore(1, pointsForCheckPointRace * multiplyer);
-                        GameObject.Find("Canvas").transform.Find("Player2").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(1));
-                    }
-                    if (player.name.Equals("Player3"))
-                    {
-                        incrementPlayerScore(2, pointsForCheckPointRace * multiplyer);
-                        GameObject.Find("Canvas").transform.Find("Player3").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(2));
-                    }
-                    if (player.name.Equals("Player4"))
-                    {
-                        incrementPlayerScore(3, pointsForCheckPointRace * multiplyer);
-                        GameObject.Find("Canvas").transform.Find("Player4").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(3));
-                    }
-                }
-                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Car"))
-                {
-                    if (!playersThroughCheckpoint.Contains(player))
-                    {
-                        KOplayer(player);
-                    }
-                }
                 postRace = true;
+                //leadingPlayer.score += pointsForKO;
+                KOplayer(chasingPlayer, leadingPlayer);
             }
 			knockoutManager_1.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
         }
 
-        if (GameObject.FindGameObjectsWithTag("Car").Length == playersKO.Count)
+        if (player1.KO && player2.KO)
         {
             reSpawnKOdPlayersAt(lastCheckPoint);
         }
 	}
 
-    public void incrementPlayerScore(int playerIndex, int scoreIncrement)
-    {
-        while (scoreByPlayerIndex.Count <= playerIndex)
-        {
-            scoreByPlayerIndex.Add(0);
-        }
-        scoreByPlayerIndex[playerIndex] = scoreByPlayerIndex[playerIndex] + scoreIncrement;
-    }
-
     public int getPlayerScore(int playerIndex)
     {
-        if (playerIndex >= scoreByPlayerIndex.Count)
+        if (playerIndex > 1)
         {
             return 0;
         }
-        return scoreByPlayerIndex[playerIndex];
+        if (playerIndex == 0)
+        {
+            return player1.score;
+        }
+        return player2.score;
+    }
+
+    private PlayerGameModel[] getModels(GameObject player)
+    {
+        PlayerGameModel selectedPlayer = null;
+        PlayerGameModel otherPlayer = null;
+        if (player.name.Equals(player1.name))
+        {
+            selectedPlayer = player1;
+            otherPlayer = player2;
+        }
+        else
+        {
+            selectedPlayer = player2;
+            otherPlayer = player1;
+        }
+        PlayerGameModel[] ret = new PlayerGameModel[2];
+        ret[0] = selectedPlayer;
+        ret[1] = otherPlayer;
+        return ret;
     }
 
     public void hitCheckpoint(RacingCheckpoint checkPoint, GameObject player)
     {
-        if (playersKO.Contains(player))
+        PlayerGameModel[] models = getModels(player);
+        PlayerGameModel selectedPlayer = models[0];
+        PlayerGameModel otherPlayer = models[1];
+        if (selectedPlayer.KO)
         {
             return;
         }
@@ -139,81 +135,53 @@ public class RaceManager : MonoBehaviour {
         {
             //Begin a race for the checkpoint
             racingFor = checkPoint;
-            playersThroughCheckpoint = new List<GameObject>();
-            playersThroughCheckpoint.Add(player);
+            leadingPlayer = selectedPlayer;
+            chasingPlayer = otherPlayer;
             timeStarted = Time.time;
 
 			knockoutManager_1.GetComponent<GUIKnockout>().startCounter ();
         }
-        else if (racingFor == checkPoint && !playersThroughCheckpoint.Contains(player))
+        else if (racingFor == checkPoint && selectedPlayer == chasingPlayer)
         {
             //handle other players reaching the racing checkpoint
-            playersThroughCheckpoint.Add(player);
-
-            if (playersThroughCheckpoint.Count >= GameObject.FindGameObjectsWithTag("Car").Length)
-            {
-                //All players have reached the checkpoint in time. Reset it all and wait for the next checkpoint to be hit.
-                racingFor = null;
-                postRace = true;
-            }
+            racingFor = null;
+            postRace = true;
         }
     }
 
     public void KOplayer(GameObject player)
     {
-        playersKO.Add(player);
-        player.GetComponent<PointIndicatorParticles>().firePenaltyParticles();
-        //player.GetComponent<Driving>().enabled = false;
-        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Car"))
-        {
-            if (p != player) {
+        PlayerGameModel[] models = getModels(player);
+        PlayerGameModel selectedPlayer = models[0];
+        PlayerGameModel otherPlayer = models[1];
+        KOplayer(selectedPlayer, otherPlayer);
+    }
 
-                if (playersKO.Contains(p))
-                {
-                    //continue;
-                }
-                p.GetComponent<PointIndicatorParticles>().fireAwardParticles();
-                if (p.name.Equals("Player1"))
-                {
-                    incrementPlayerScore(0, pointsForKO);
-                    GameObject.Find("Canvas").transform.Find("Player1").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(0));
-                }
-                if (p.name.Equals("Player2"))
-                {
-                    incrementPlayerScore(1, pointsForKO);
-                    GameObject.Find("Canvas").transform.Find("Player2").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(1));
-                }
-                if (p.name.Equals("Player3"))
-                {
-                    incrementPlayerScore(2, pointsForKO);
-                    GameObject.Find("Canvas").transform.Find("Player3").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(2));
-                }
-                if (p.name.Equals("Player4"))
-                {
-                    incrementPlayerScore(3, pointsForKO);
-                    GameObject.Find("Canvas").transform.Find("Player4").GetComponent<GUIMultiplayer>().setScore(getPlayerScore(3));
-                }
-            }
-        }
+    public void KOplayer(PlayerGameModel selectedPlayer, PlayerGameModel otherPlayer)
+    {
+        selectedPlayer.KO = true;
+        selectedPlayer.car.GetComponent<PointIndicatorParticles>().firePenaltyParticles();
+        //player.GetComponent<Driving>().enabled = false;
+        otherPlayer.car.GetComponent<PointIndicatorParticles>().fireAwardParticles();
+        otherPlayer.score += pointsForKO;
     }
 
     public void reSpawnKOdPlayersAt(RacingCheckpoint checkpoint)
     {
         Transform respawn1 = checkpoint.transform.Find("Respawn1");
         Transform respawn2 = checkpoint.transform.Find("Respawn2");
-        if (playersKO.Count > 1)
+        if (player1.KO)
         {
-            playersKO[0].transform.position = respawn1.position;
-            playersKO[0].transform.rotation = respawn1.rotation;
-            playersKO[1].transform.position = respawn2.position;
-            playersKO[1].transform.rotation = respawn2.rotation;
+            player1.car.transform.position = respawn1.position;
+            player1.car.transform.rotation = respawn1.rotation;
+            player1.KO = false;
         }
-        else if (playersKO.Count > 0)
+        if (player2.KO)
         {
-            playersKO[0].transform.position = respawn1.position;
-            playersKO[0].transform.rotation = respawn1.rotation;
+            player2.car.transform.position = respawn2.position;
+            player2.car.transform.rotation = respawn2.rotation;
+            player2.KO = false;
         }
-        playersKO = new List<GameObject>();
         postRace = false;
         racingFor = null;
     }
@@ -229,30 +197,30 @@ public class RaceManager : MonoBehaviour {
 
     public void endGame()
     {
-        player1Wins = getPlayerScore(0) > getPlayerScore(1);
+        if (player1.score > player2.score)
+        {
+            winner = player1;
+        }
+        else
+        {
+            winner = player2;
+        }
         gameOver = true;
         SceneManager.LoadScene("EndScene");
     }
 
     public int getNumberOfPlayerLeading()
     {
-        if (playersThroughCheckpoint[0].name.Equals("Player1"))
-        {
-            return 1;
-        }
-        else
-        {
-            return 2;
-        }
+        return leadingPlayer.playerNumber;
     }
 
     public int getNumberOfPlayerChasing()
     {
-        return 3 - getNumberOfPlayerLeading();
+        return chasingPlayer.playerNumber;
     }
 
     public bool isPlayer1Winner()
     {
-        return player1Wins;
+        return (winner.playerNumber == 1);
     }
 }
