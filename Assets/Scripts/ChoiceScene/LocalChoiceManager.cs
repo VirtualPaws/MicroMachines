@@ -36,6 +36,11 @@ public class LocalChoiceManager : MonoBehaviour {
 
     private bool done = false;
 
+    private string player1pickingAxis;
+    private bool player1Release = true;
+    private string player2pickingAxis;
+    private bool player2Release = true;
+
 
 	// Use this for initialization
     void Start()
@@ -74,21 +79,25 @@ public class LocalChoiceManager : MonoBehaviour {
             {
                 player1Controls = "Keyboard";
                 player1HasControls = true;
+                player1pickingAxis = "Horizontal1";
             }
             if (Input.GetKeyDown(enterKey2))
             {
                 player1Controls = "Keyboard2";
                 player1HasControls = true;
+                player1pickingAxis = "Horizontal4";
             }
             else if (Input.GetButtonDown(enterButton + "2"))
             {
                 player1Controls = "Controller1";
                 player1HasControls = true;
+                player1pickingAxis = "Horizontal2";
             }
             else if (Input.GetButtonDown(enterButton + "3"))
             {
                 player1Controls = "Controller2";
                 player1HasControls = true;
+                player1pickingAxis = "Horizontal3";
             }
         }
         else if(!player2HasControls)
@@ -97,29 +106,66 @@ public class LocalChoiceManager : MonoBehaviour {
             {
                 player2Controls = "Keyboard";
                 player2HasControls = true;
+                player2pickingAxis = "Horizontal1";
             }
-            if (Input.GetKeyDown(enterKey2))
+            if (Input.GetKeyDown(enterKey2) && !player1Controls.Equals("Keyboard2"))
             {
                 player2Controls = "Keyboard2";
                 player2HasControls = true;
+                player2pickingAxis = "Horizontal4";
             }
             else if (Input.GetButtonDown(enterButton+"2") && !player1Controls.Equals("Controller1"))
             {
                 player2Controls = "Controller1";
                 player2HasControls = true;
+                player2pickingAxis = "Horizontal2";
             }
             else if (Input.GetButtonDown(enterButton + "3") && !player1Controls.Equals("Controller2"))
             {
                 player2Controls = "Controller2";
                 player2HasControls = true;
+                player2pickingAxis = "Horizontal3";
             }
         }
-		if (player1HasControls) {
-			rdyBtn1.SetActive (true);
-		}
-		if (player2HasControls) {
-			rdyBtn2.SetActive (true);
-		}
+		if (player1HasControls && player1Release) {
+            rdyBtn1.SetActive(true);
+            if (Input.GetAxis(player1pickingAxis) > 0.2)
+            {
+                switchCarP1Right();
+                player1Release = false;
+            }
+            else if (Input.GetAxis(player1pickingAxis) < -0.2)
+            {
+                switchCarP1Left();
+                player1Release = false;
+            }
+        }
+        else if (Input.GetAxis(player1pickingAxis) > -0.2 && Input.GetAxis(player1pickingAxis) < 0.2)
+        {
+            player1Release = true;
+        }
+        if (player2HasControls && player2Release)
+        {
+            rdyBtn2.SetActive(true);
+            if (Input.GetAxis(player2pickingAxis) > 0.2)
+            {
+                switchCarP2Right();
+                player2Release = false;
+            }
+            else if (Input.GetAxis(player2pickingAxis) < -0.2)
+            {
+                switchCarP2Left();
+                player2Release = false;
+            }
+            else
+            {
+                player2Release = true;
+            }
+        }
+        else if (Input.GetAxis(player2pickingAxis) > -0.2 && Input.GetAxis(player2pickingAxis) < 0.2)
+        {
+            player2Release = true;
+        }
         if (player1HasControls && player2HasControls)
         {
             rdyBtn.SetActive(true);
