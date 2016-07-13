@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour {
 
+	public GameObject knockoutManager_1;
+	public GameObject knockoutManager_2;
+
     public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
     private RacingCheckpoint lastCheckPoint;
@@ -21,6 +24,7 @@ public class RaceManager : MonoBehaviour {
 
     public float timeLimit = 5; //seconds
 
+
 	// Use this for initialization
     void Start()
     {
@@ -30,6 +34,10 @@ public class RaceManager : MonoBehaviour {
         scoreByPlayerIndex.Add(0);
         scoreByPlayerIndex.Add(0);
         lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
+
+		knockoutManager_1 = GameObject.Find ("KnockoutManager_1");
+		knockoutManager_2 = GameObject.Find ("KnockoutManager_2");
+
 	}
 	
 	// Update is called once per frame
@@ -87,7 +95,9 @@ public class RaceManager : MonoBehaviour {
                 }
                 postRace = true;
             }
+			knockoutManager_1.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
         }
+
         if (GameObject.FindGameObjectsWithTag("Car").Length == playersKO.Count)
         {
             reSpawnKOdPlayersAt(lastCheckPoint);
@@ -122,6 +132,7 @@ public class RaceManager : MonoBehaviour {
         if (postRace)
         {
             reSpawnKOdPlayersAt(checkPoint);
+			knockoutManager_1.GetComponent<GUIKnockout> ().endCounter();
             return;
         }
         if (racingFor == null)
@@ -131,11 +142,14 @@ public class RaceManager : MonoBehaviour {
             playersThroughCheckpoint = new List<GameObject>();
             playersThroughCheckpoint.Add(player);
             timeStarted = Time.time;
+
+			knockoutManager_1.GetComponent<GUIKnockout>().startCounter ();
         }
         else if (racingFor == checkPoint && !playersThroughCheckpoint.Contains(player))
         {
             //handle other players reaching the racing checkpoint
             playersThroughCheckpoint.Add(player);
+
             if (playersThroughCheckpoint.Count >= GameObject.FindGameObjectsWithTag("Car").Length)
             {
                 //All players have reached the checkpoint in time. Reset it all and wait for the next checkpoint to be hit.
