@@ -234,6 +234,23 @@ public class RaceManager : MonoBehaviour {
         SceneManager.LoadScene("EndScene");
     }
 
+    public int getNumberOfPlayerLeading()
+    {
+        if (playersThroughCheckpoint[0].name.Equals("Player1"))
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
+
+    public int getNumberOfPlayerChasing()
+    {
+        return 3 - getNumberOfPlayerLeading();
+    }
+
     public bool isPlayer1Winner()
     {
         return player1Wins;

@@ -294,7 +294,7 @@ MonoBehaviour:
   rotationBasedSpeedMod: 0.9
   brake: 0.5
   explosionDistance: 10
-  explosionForce: 300
+  explosionForce: 1000
   explosionRadius: 40
   maxFlightTime: 5
   debug_neverExplode: 0
