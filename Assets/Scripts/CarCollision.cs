@@ -23,7 +23,7 @@ public class CarCollision : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         //check if collided object is player
-        if (col.gameObject.layer == 10)
+        if (col.gameObject.layer == 10 && !col.gameObject.GetComponent<Rigidbody>().Equals(null))
         {
             Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.forward);
             RaycastHit hit;

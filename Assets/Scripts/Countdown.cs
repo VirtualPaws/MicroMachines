@@ -19,6 +19,8 @@ public class Countdown : MonoBehaviour {
 
         p1.GetComponent<Driving>().canDrive = false;
         p2.GetComponent<Driving>().canDrive = false;
+        p1.GetComponent<DrivingSound>().engineOn = true;
+        p2.GetComponent<DrivingSound>().engineOn = true;
 
 		//countdown zeug
 		textcomp = countdownField.GetComponent<UnityEngine.UI.Text>();
