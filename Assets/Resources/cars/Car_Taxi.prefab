@@ -33,6 +33,8 @@ GameObject:
   - 136: {fileID: 13616690}
   - 114: {fileID: 11477194}
   - 114: {fileID: 11460622}
+  - 114: {fileID: 11400432}
+  - 136: {fileID: 13637674}
   m_Layer: 10
   m_Name: Car_Taxi
   m_TagString: Car
@@ -113,6 +115,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &11400432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6f72297edac524eb0ee530ce99ce6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMult: 300
 --- !u!114 &11408734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,6 +179,7 @@ MonoBehaviour:
   gravity: 0.01
   inputDevice: Keyboard
   oiltime: 1
+  canDrive: 1
 --- !u!114 &11473476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +254,19 @@ CapsuleCollider:
   m_GameObject: {fileID: 199308}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 5
+  m_Direction: 2
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &13637674
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 5
