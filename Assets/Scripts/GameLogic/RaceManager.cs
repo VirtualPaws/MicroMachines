@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour {
 
-	public GameObject knockoutManager_1;
-	public GameObject knockoutManager_2;
+	public GameObject knockoutManager;
 
     public List<int> scoreByPlayerIndex;
     private RacingCheckpoint racingFor;
@@ -35,8 +34,7 @@ public class RaceManager : MonoBehaviour {
         scoreByPlayerIndex.Add(0);
         lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
 
-		knockoutManager_1 = GameObject.Find ("KnockoutManager_1");
-		knockoutManager_2 = GameObject.Find ("KnockoutManager_2");
+		knockoutManager = GameObject.Find ("KnockoutManager");
 
 	}
 	
@@ -95,7 +93,7 @@ public class RaceManager : MonoBehaviour {
                 }
                 postRace = true;
             }
-			knockoutManager_1.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
+			knockoutManager.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
         }
 
         if (GameObject.FindGameObjectsWithTag("Car").Length == playersKO.Count)
@@ -132,7 +130,7 @@ public class RaceManager : MonoBehaviour {
         if (postRace)
         {
             reSpawnKOdPlayersAt(checkPoint);
-			knockoutManager_1.GetComponent<GUIKnockout> ().endCounter();
+			knockoutManager.GetComponent<GUIKnockout> ().endCounter();
             return;
         }
         if (racingFor == null)
@@ -143,7 +141,7 @@ public class RaceManager : MonoBehaviour {
             playersThroughCheckpoint.Add(player);
             timeStarted = Time.time;
 
-			knockoutManager_1.GetComponent<GUIKnockout>().startCounter ();
+			knockoutManager.GetComponent<GUIKnockout>().startCounter (getNumberOfPlayerChasing());
         }
         else if (racingFor == checkPoint && !playersThroughCheckpoint.Contains(player))
         {
