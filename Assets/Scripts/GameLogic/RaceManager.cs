@@ -30,7 +30,6 @@ public class RaceManager : MonoBehaviour {
     void Start()
     {
         Object.DontDestroyOnLoad(this);
-
 	}
 
     private void initialise()
