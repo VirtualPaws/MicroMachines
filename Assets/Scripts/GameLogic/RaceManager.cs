@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour {
-
     private PlayerGameModel player1;
     private PlayerGameModel player2;
 
     private PlayerGameModel leadingPlayer;
     private PlayerGameModel chasingPlayer;
 
-	public GameObject knockoutManager_1;
-	public GameObject knockoutManager_2;
+	public GameObject knockoutManager;
 
     private RacingCheckpoint racingFor;
     private RacingCheckpoint lastCheckPoint;
@@ -33,7 +31,15 @@ public class RaceManager : MonoBehaviour {
     {
         Object.DontDestroyOnLoad(this);
 
+	}
+
+    private void initialise()
+    {
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
+        if (cars.Length < 2)
+        {
+            return;
+        }
 
         player1 = new PlayerGameModel();
         player1.name = "Player1";
@@ -49,16 +55,18 @@ public class RaceManager : MonoBehaviour {
 
         lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
 
-		knockoutManager_1 = GameObject.Find ("KnockoutManager_1");
-		knockoutManager_2 = GameObject.Find ("KnockoutManager_2");
-
-	}
+        knockoutManager = GameObject.Find("KnockoutManager");
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (gameOver || player1 == null || player2 == null)
+        if (gameOver)
         {
             return;
+        }
+        if (player1 == null || player2 == null)
+        {
+            initialise();
         }
         if (player1.score >= pointsToWin || player2.score >= pointsToWin)
         {
@@ -68,12 +76,9 @@ public class RaceManager : MonoBehaviour {
         {
             if (Time.time > timeStarted + timeLimit)
             {
-                racingFor = null;
-                postRace = true;
-                //leadingPlayer.score += pointsForKO;
                 KOplayer(chasingPlayer, leadingPlayer);
             }
-			knockoutManager_1.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
+			knockoutManager.GetComponent<GUIKnockout> ().tickCounter (getTimeLeft()+1);
         }
 
         if (player1.KO && player2.KO)
@@ -117,36 +122,40 @@ public class RaceManager : MonoBehaviour {
 
     public void hitCheckpoint(RacingCheckpoint checkPoint, GameObject player)
     {
+        Debug.Log(player.name + " Hitting Checkpoint");
         PlayerGameModel[] models = getModels(player);
         PlayerGameModel selectedPlayer = models[0];
         PlayerGameModel otherPlayer = models[1];
         if (selectedPlayer.KO)
         {
+            Debug.Log(">>> But " + selectedPlayer.name + " is KO");
             return;
         }
-        lastCheckPoint = checkPoint;
         if (postRace)
         {
+            Debug.Log(">>> Respawning " + otherPlayer.name);
             reSpawnKOdPlayersAt(checkPoint);
-			knockoutManager_1.GetComponent<GUIKnockout> ().endCounter();
-            return;
+			knockoutManager.GetComponent<GUIKnockout> ().endCounter();
         }
-        if (racingFor == null)
+        else if (racingFor == null && checkPoint != lastCheckPoint)
         {
+            Debug.Log(">>> A Race Begins with " + selectedPlayer.name + " leading and " + otherPlayer.name + " chasing.");
             //Begin a race for the checkpoint
             racingFor = checkPoint;
             leadingPlayer = selectedPlayer;
             chasingPlayer = otherPlayer;
             timeStarted = Time.time;
 
-			knockoutManager_1.GetComponent<GUIKnockout>().startCounter ();
+			knockoutManager.GetComponent<GUIKnockout>().startCounter (getNumberOfPlayerChasing());
         }
         else if (racingFor == checkPoint && selectedPlayer == chasingPlayer)
         {
+            Debug.Log(">>> " + selectedPlayer.name + " reached Checkpoint in time");
             //handle other players reaching the racing checkpoint
             racingFor = null;
             postRace = true;
         }
+        lastCheckPoint = checkPoint;
     }
 
     public void KOplayer(GameObject player)
@@ -159,11 +168,20 @@ public class RaceManager : MonoBehaviour {
 
     public void KOplayer(PlayerGameModel selectedPlayer, PlayerGameModel otherPlayer)
     {
+        if (selectedPlayer.KO)
+        {
+            return;
+        }
         selectedPlayer.KO = true;
         selectedPlayer.car.GetComponent<PointIndicatorParticles>().firePenaltyParticles();
+        selectedPlayer.car.GetComponent<Driving>().canDrive = false;
         //player.GetComponent<Driving>().enabled = false;
         otherPlayer.car.GetComponent<PointIndicatorParticles>().fireAwardParticles();
         otherPlayer.score += pointsForKO;
+        GameObject.Find("Canvas").transform.Find(otherPlayer.name).GetComponent<GUIMultiplayer>().setScore(otherPlayer.score);
+        racingFor = null;
+        postRace = true;
+
     }
 
     public void reSpawnKOdPlayersAt(RacingCheckpoint checkpoint)
@@ -175,12 +193,14 @@ public class RaceManager : MonoBehaviour {
             player1.car.transform.position = respawn1.position;
             player1.car.transform.rotation = respawn1.rotation;
             player1.KO = false;
+            player1.car.GetComponent<Driving>().canDrive = true;
         }
         if (player2.KO)
         {
             player2.car.transform.position = respawn2.position;
             player2.car.transform.rotation = respawn2.rotation;
             player2.KO = false;
+            player2.car.GetComponent<Driving>().canDrive = true;
         }
         postRace = false;
         racingFor = null;

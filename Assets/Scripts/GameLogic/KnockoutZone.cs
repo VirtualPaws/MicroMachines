@@ -24,7 +24,6 @@ public class KnockoutZone : MonoBehaviour {
                 return;
             }
             raMan.GetComponent<RaceManager>().KOplayer(other.gameObject);
-            Debug.Log("KO");
         }
     }
 }
