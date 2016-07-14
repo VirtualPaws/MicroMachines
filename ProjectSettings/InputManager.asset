@@ -57,14 +57,14 @@ InputManager:
     m_Name: Vertical2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 1
-    positiveButton: joystick 1 button 0
+    negativeButton: joystick 1 button 2
+    positiveButton: joystick 1 button 1
     altNegativeButton: 
     altPositiveButton: 
     gravity: 100
     dead: 0.01
     sensitivity: 70
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 1
@@ -89,14 +89,14 @@ InputManager:
     m_Name: Vertical3
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 2 button 1
-    positiveButton: joystick 2 button 0
+    negativeButton: joystick 2 button 2
+    positiveButton: joystick 2 button 1
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
     dead: 0.001
     sensitivity: 1
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 0

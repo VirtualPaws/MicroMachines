@@ -13,7 +13,9 @@ public class DrivingSound : MonoBehaviour {
     void Awake()
     {
         carRigidbody = GetComponent<Rigidbody>();
-        engineSound = GetComponent<AudioSource>();
+        //Audiosources Appear in the same Order as they do in the Inspector top to bottom
+        engineSound = GetComponents<AudioSource>()[0];
+
     }
 
     private void FixedUpdate()
