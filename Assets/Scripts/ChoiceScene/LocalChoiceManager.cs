@@ -174,9 +174,6 @@ public class LocalChoiceManager : MonoBehaviour {
         {
 			//set green
 			rdyBtn.GetComponent<Image>().color = Color.green;
-		//	Text text = rdyBtn.GetComponent<UnityEngine.UI.Text> ();
-	//		text.text = "GO!";
-
 			if (start && (Input.GetKeyDown(enterKey) || Input.GetKeyDown(enterKey2) || Input.GetButtonDown(enterButton + "2") || Input.GetButtonDown(enterButton + "3")))
 			{
 				begin ();
@@ -249,7 +246,8 @@ public class LocalChoiceManager : MonoBehaviour {
         GameObject picked2 = carPrefabs[indexP2];
 
         done = true;
-        SceneManager.LoadScene("textureScene");
+    //   SceneManager.LoadScene("textureScene");
+			SceneManager.LoadScene("loadingScene");
 		}
     }
 
