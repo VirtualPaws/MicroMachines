@@ -56,7 +56,7 @@ public class DelayedControlReset : IDelayedBehavior
     {
         if (Time.time - startTime > timer)
         {
-            driving.enabled = true;
+            driving.canDrive = true;
         }
     }
 

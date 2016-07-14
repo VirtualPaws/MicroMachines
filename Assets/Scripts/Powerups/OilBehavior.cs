@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OilBehavior : MonoBehaviour {
     public float growthTime = 0.5f;//seconds
-    public float lifeTime = 2f;//seconds
+    public float lifeTime = 6f;//seconds
     private float born;
 
 	// Use this for initialization
