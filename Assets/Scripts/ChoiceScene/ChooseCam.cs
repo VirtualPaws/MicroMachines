@@ -43,13 +43,6 @@ public class ChooseCam : MonoBehaviour {
 				classicBtn.Select ();
 			}
 
-            if (canToggle)
-            {
-                if (Input.GetAxis("Vertical2") > 0 || Input.GetAxis("Vertical3") > 0)
-                {
-                    toggleWindow();
-                }
-            }
 		}
 
         if (!canToggle)

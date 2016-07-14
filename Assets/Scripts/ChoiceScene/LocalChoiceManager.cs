@@ -91,13 +91,13 @@ public class LocalChoiceManager : MonoBehaviour {
                 player1HasControls = true;
                 player1pickingAxis = "Horizontal4";
             }
-			else if (Input.GetButtonDown(enterButton + "2") ||  Input.GetAxis("Horizontal2") != 0)
+			else if (Input.GetAxis(enterButton + "2") > 0 ||  Input.GetAxis("Horizontal2") != 0)
             {
                 player1Controls = "Controller1";
                 player1HasControls = true;
                 player1pickingAxis = "Horizontal2";
             }
-			else if (Input.GetButtonDown(enterButton + "3") ||  Input.GetAxis("Horizontal3") != 0)
+			else if (Input.GetAxis(enterButton + "3") > 0 ||  Input.GetAxis("Horizontal3") != 0)
             {
                 player1Controls = "Controller2";
                 player1HasControls = true;
@@ -118,13 +118,13 @@ public class LocalChoiceManager : MonoBehaviour {
                 player2HasControls = true;
                 player2pickingAxis = "Horizontal4";
             }
-			else if ((Input.GetButtonDown(enterButton+"2") || Input.GetAxis("Horizontal2") != 0) && !player1Controls.Equals("Controller1"))
+			else if ((Input.GetAxis(enterButton+"2") > 0 || Input.GetAxis("Horizontal2") != 0) && !player1Controls.Equals("Controller1"))
             {
                 player2Controls = "Controller1";
                 player2HasControls = true;
                 player2pickingAxis = "Horizontal2";
             }
-			else if ((Input.GetButtonDown(enterButton + "3") || Input.GetAxis("Horizontal3") != 0) && !player1Controls.Equals("Controller2"))
+			else if ((Input.GetAxis(enterButton + "3") > 0 || Input.GetAxis("Horizontal3") != 0) && !player1Controls.Equals("Controller2"))
             {
                 player2Controls = "Controller2";
                 player2HasControls = true;
@@ -174,7 +174,7 @@ public class LocalChoiceManager : MonoBehaviour {
         {
 			//set green
 			rdyBtn.GetComponent<Image>().color = Color.green;
-			if (start && (Input.GetKeyDown(enterKey) || Input.GetKeyDown(enterKey2) || Input.GetButtonDown(enterButton + "2") || Input.GetButtonDown(enterButton + "3")))
+			if (start && (Input.GetKeyDown(enterKey) || Input.GetKeyDown(enterKey2) || Input.GetAxis(enterButton + "2") > 0 || Input.GetAxis(enterButton + "3") > 0))
 			{
 				begin ();
 			}
