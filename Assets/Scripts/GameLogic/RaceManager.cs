@@ -25,6 +25,8 @@ public class RaceManager : MonoBehaviour {
 
     public float timeLimit = 5; //seconds
 
+    private AudioSource coinSfx;
+    private AudioSource koSfx;
 
 	// Use this for initialization
     void Start()
@@ -55,6 +57,8 @@ public class RaceManager : MonoBehaviour {
         lastCheckPoint = GameObject.FindGameObjectsWithTag("Checkpoint")[0].GetComponent<RacingCheckpoint>();
 
         knockoutManager = GameObject.Find("KnockoutManager");
+
+        coinSfx = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -177,6 +181,7 @@ public class RaceManager : MonoBehaviour {
         //player.GetComponent<Driving>().enabled = false;
         otherPlayer.car.GetComponent<PointIndicatorParticles>().fireAwardParticles();
         otherPlayer.score += pointsForKO;
+        coinSfx.Play();
         GameObject.Find("Canvas").transform.Find(otherPlayer.name).GetComponent<GUIMultiplayer>().setScore(otherPlayer.score);
         racingFor = null;
         postRace = true;

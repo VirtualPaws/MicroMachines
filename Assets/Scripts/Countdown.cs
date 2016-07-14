@@ -11,6 +11,8 @@ public class Countdown : MonoBehaviour {
 	Text textcomp;
 	Text textcompShadow;
 
+    AudioSource cdSfx;
+
 	// Use this for initialization
 	void Start () {
         //lock players
@@ -21,6 +23,8 @@ public class Countdown : MonoBehaviour {
         p2.GetComponent<Driving>().canDrive = false;
         p1.GetComponent<DrivingSound>().engineOn = true;
         p2.GetComponent<DrivingSound>().engineOn = true;
+
+        cdSfx = GetComponent<AudioSource>();
 
 		//countdown zeug
 		textcomp = countdownField.GetComponent<UnityEngine.UI.Text>();
@@ -37,6 +41,7 @@ public class Countdown : MonoBehaviour {
 			textcomp.text = "" + letter;
 			textcompShadow.text = "" + letter;
 
+            cdSfx.Play();
 			yield return new WaitForSeconds (delay);
 		}
         //unlock players
