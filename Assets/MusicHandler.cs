@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class MusicHandler : MonoBehaviour {
-
+	public AudioSource audio1;
+	public AudioSource audio2;
 	//credits to jashan, unityforum
 	private static MusicHandler instance = null;
 	public static MusicHandler Instance{
@@ -15,11 +16,16 @@ public class MusicHandler : MonoBehaviour {
 			return;
 		} else {
 			instance = this;
+			audio1 = GetComponent<AudioSource>();
+			audio2 = GetComponent<AudioSource>();
+			if (Application.loadedLevelName == "EndScene") {
+				audio1.Stop ();
+				audio2.Play ();
+			} else {
+				audio1.Play ();
+			}
 		}
 		DontDestroyOnLoad (this.gameObject);
 	}
 
-	public void playNextSound(){
-		
-	}
 }

@@ -24,6 +24,8 @@ public class VictoryManager : MonoBehaviour {
             sec.GetComponent<Rigidbody>().isKinematic = true;
 
             GameObject.Find("Zahl").GetComponent<UnityEngine.UI.Text>().text = "1";
+
+
         }
         else
         {
@@ -45,6 +47,7 @@ public class VictoryManager : MonoBehaviour {
         }
         GameObject.Destroy(lcm.gameObject);
         GameObject.Destroy(rm.gameObject);
+
 	}
 	
 	// Update is called once per frame
