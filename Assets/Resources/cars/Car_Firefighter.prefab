@@ -356,10 +356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a946b8185a0de478790f75799d67bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
-  maxspeed: 500
-  turn: 50
-  maxturn: 60
+  speed: 450
+  maxspeed: 550
+  turn: 60
+  maxturn: 70
   checkHeight: 1000
   gravity: 0.01
   inputDevice: Keyboard
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6f72297edac524eb0ee530ce99ce6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMult: 300
+  forceMult: 260
 --- !u!114 &11447174
 MonoBehaviour:
   m_ObjectHideFlags: 1
