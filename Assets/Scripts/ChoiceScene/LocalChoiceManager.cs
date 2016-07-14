@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LocalChoiceManager : MonoBehaviour {
 
@@ -41,6 +42,8 @@ public class LocalChoiceManager : MonoBehaviour {
     private string player2pickingAxis;
     private bool player2Release = true;
 
+	private bool start = false;
+
 
 	// Use this for initialization
     void Start()
@@ -64,6 +67,7 @@ public class LocalChoiceManager : MonoBehaviour {
             cars2.Add(copy2);
         }
         displayRightCar();
+		rdyBtn.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -75,25 +79,25 @@ public class LocalChoiceManager : MonoBehaviour {
         }
         if (!player1HasControls)
         {
-            if (Input.GetKeyDown(enterKey))
+			if (Input.GetKeyDown(enterKey) || Input.GetAxis("Horizontal1") != 0)
             {
                 player1Controls = "Keyboard";
                 player1HasControls = true;
                 player1pickingAxis = "Horizontal1";
             }
-            if (Input.GetKeyDown(enterKey2))
+			if (Input.GetKeyDown(enterKey2) ||  Input.GetAxis("Horizontal4") != 0)
             {
                 player1Controls = "Keyboard2";
                 player1HasControls = true;
                 player1pickingAxis = "Horizontal4";
             }
-            else if (Input.GetButtonDown(enterButton + "2"))
+			else if (Input.GetButtonDown(enterButton + "2") ||  Input.GetAxis("Horizontal2") != 0)
             {
                 player1Controls = "Controller1";
                 player1HasControls = true;
                 player1pickingAxis = "Horizontal2";
             }
-            else if (Input.GetButtonDown(enterButton + "3"))
+			else if (Input.GetButtonDown(enterButton + "3") ||  Input.GetAxis("Horizontal3") != 0)
             {
                 player1Controls = "Controller2";
                 player1HasControls = true;
@@ -102,25 +106,25 @@ public class LocalChoiceManager : MonoBehaviour {
         }
         else if(!player2HasControls)
         {
-            if (Input.GetKeyDown(enterKey) && !player1Controls.Equals("Keyboard"))
+			if ((Input.GetKeyDown(enterKey) || Input.GetAxis("Horizontal1") != 0) && !player1Controls.Equals("Keyboard"))
             {
                 player2Controls = "Keyboard";
                 player2HasControls = true;
                 player2pickingAxis = "Horizontal1";
             }
-            if (Input.GetKeyDown(enterKey2) && !player1Controls.Equals("Keyboard2"))
+			if ((Input.GetKeyDown(enterKey2)) || Input.GetAxis("Horizontal4") != 0 && !player1Controls.Equals("Keyboard2"))
             {
                 player2Controls = "Keyboard2";
                 player2HasControls = true;
                 player2pickingAxis = "Horizontal4";
             }
-            else if (Input.GetButtonDown(enterButton+"2") && !player1Controls.Equals("Controller1"))
+			else if ((Input.GetButtonDown(enterButton+"2") || Input.GetAxis("Horizontal2") != 0) && !player1Controls.Equals("Controller1"))
             {
                 player2Controls = "Controller1";
                 player2HasControls = true;
                 player2pickingAxis = "Horizontal2";
             }
-            else if (Input.GetButtonDown(enterButton + "3") && !player1Controls.Equals("Controller2"))
+			else if ((Input.GetButtonDown(enterButton + "3") || Input.GetAxis("Horizontal3") != 0) && !player1Controls.Equals("Controller2"))
             {
                 player2Controls = "Controller2";
                 player2HasControls = true;
@@ -168,7 +172,16 @@ public class LocalChoiceManager : MonoBehaviour {
         }
         if (player1HasControls && player2HasControls)
         {
-            rdyBtn.SetActive(true);
+			//set green
+			rdyBtn.GetComponent<Image>().color = Color.green;
+		//	Text text = rdyBtn.GetComponent<UnityEngine.UI.Text> ();
+	//		text.text = "GO!";
+
+			if (start && (Input.GetKeyDown(enterKey) || Input.GetKeyDown(enterKey2) || Input.GetButtonDown(enterButton + "2") || Input.GetButtonDown(enterButton + "3")))
+			{
+				begin ();
+			}
+			start = true;
         }
     }
 
@@ -231,11 +244,13 @@ public class LocalChoiceManager : MonoBehaviour {
 
     public void begin()
     {
+		if(player1HasControls && player2HasControls){
         GameObject picked = carPrefabs[indexP1];
         GameObject picked2 = carPrefabs[indexP2];
 
         done = true;
         SceneManager.LoadScene("textureScene");
+		}
     }
 
     public bool isCameraModeClassic()
