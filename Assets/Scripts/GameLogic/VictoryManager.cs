@@ -40,7 +40,8 @@ public class VictoryManager : MonoBehaviour {
             sec.transform.localRotation = new Quaternion();
             sec.GetComponent<Rigidbody>().isKinematic = true;
 
-            GameObject.Find("Zahl").GetComponent<UnityEngine.UI.Text>().text = "2";
+            GameObject.Find("Schriftzug").transform.Find("Zahl").GetComponent<UnityEngine.UI.Text>().text = "2";
+            GameObject.Find("Schatten").transform.Find("Zahl").GetComponent<UnityEngine.UI.Text>().text = "2";
         }
         GameObject.Destroy(lcm.gameObject);
         GameObject.Destroy(rm.gameObject);
