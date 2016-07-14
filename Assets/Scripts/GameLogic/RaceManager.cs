@@ -17,8 +17,8 @@ public class RaceManager : MonoBehaviour {
     private bool postRace = false;
 
     private float timeStarted = 0;
-    private int pointsForKO = 100;
-    private int pointsToWin = 300;
+    public int pointsForKO = 100;
+    public int pointsToWin = 500;
 
     private PlayerGameModel winner;
     private bool gameOver = false;
@@ -185,7 +185,7 @@ public class RaceManager : MonoBehaviour {
         GameObject.Find("Canvas").transform.Find(otherPlayer.name).GetComponent<GUIMultiplayer>().setScore(otherPlayer.score);
         racingFor = null;
         postRace = true;
-
+        knockoutManager.GetComponent<GUIKnockout>().endCounter();
     }
 
     public void reSpawnKOdPlayersAt(RacingCheckpoint checkpoint)
