@@ -11,13 +11,15 @@ public class CameraManager : MonoBehaviour {
 	public GameObject wallColor;
 	public GameObject wallPlane;
 
-	private bool isClassic;
-	private bool is3rdPerson;
+	public bool isClassic;
+	public bool is3rdPerson;
 	// Use this for initialization
 	void Start () {
 		GameObject choiceManager = GameObject.Find("ChoiceManager");
 		isClassic = choiceManager.GetComponent<LocalChoiceManager>().isCameraModeClassic ();
 		is3rdPerson = choiceManager.GetComponent<LocalChoiceManager>().isCameraMode3rdPerson ();
+
+		Debug.Log ("classic" + isClassic + "3rdperson" + is3rdPerson);
 
 		camClassic_1.SetActive (isClassic);
 		camClassic_2.SetActive (isClassic);

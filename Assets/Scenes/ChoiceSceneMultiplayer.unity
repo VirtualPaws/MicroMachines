@@ -282,6 +282,7 @@ MonoBehaviour:
   canvasContainer: {fileID: 903065289}
   classicBtn: {fileID: 143708526}
   thrdPersonBtn: {fileID: 1689319438}
+  choiceManager: {fileID: 1574066439}
 --- !u!114 &31380176
 MonoBehaviour:
   m_ObjectHideFlags: 0

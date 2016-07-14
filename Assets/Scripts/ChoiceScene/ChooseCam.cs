@@ -12,6 +12,7 @@ public class ChooseCam : MonoBehaviour {
 	public Button thrdPersonBtn;
     float toggletimer = 0;
     bool canToggle = true;
+	public GameObject choiceManager;
 
 	void Start () {
 		classic = false;
@@ -32,13 +33,11 @@ public class ChooseCam : MonoBehaviour {
             //Bedingungen
             if (Input.GetAxis("Horizontal1") > 0 || Input.GetAxis("Horizontal2") > 0 || Input.GetAxis("Horizontal3") > 0 || Input.GetAxis("Horizontal4") > 0)
             {
-				Debug.Log ("grosser 0");
 				setShoulder ();
 				thrdPersonBtn.Select ();
             }
             else if (Input.GetAxis("Horizontal1") < 0 || Input.GetAxis("Horizontal2") < 0 || Input.GetAxis("Horizontal3") < 0 || Input.GetAxis("Horizontal4") < 0)
             {
-				Debug.Log ("kleiner 0");
 				setClassic ();
 				classicBtn.Select ();
 			}
@@ -61,11 +60,12 @@ public class ChooseCam : MonoBehaviour {
 	}
 
 	public void setClassic(){
-		classic = true;
+		choiceManager.GetComponent<LocalChoiceManager> ().setCameraToClassic ();
 		shoulder = false;
 	}	
 
 	public void setShoulder(){
+		choiceManager.GetComponent<LocalChoiceManager> ().setCameraTo3rdPerson ();
 		classic = false;
 		shoulder = true;
 	}	
