@@ -465,7 +465,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30.12, y: -0.4}
+  m_AnchoredPosition: {x: 13.9, y: -0.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88691450
@@ -500,7 +500,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 2 OK
+  m_Text: Player 2 active
 --- !u!222 &88691451
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2361,7 +2361,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 129078, guid: 924347795c037a448aac8d408639a730, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22412360, guid: 924347795c037a448aac8d408639a730, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -3506,7 +3506,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.1, y: 0}
+  m_AnchoredPosition: {x: 16.98, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440520372
@@ -3541,7 +3541,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 1 OK
+  m_Text: Player 1 active
 --- !u!222 &1440520373
 CanvasRenderer:
   m_ObjectHideFlags: 0
