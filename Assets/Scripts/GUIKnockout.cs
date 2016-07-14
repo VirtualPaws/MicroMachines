@@ -11,11 +11,15 @@ public class GUIKnockout : MonoBehaviour {
 	//public GameObject raceManager;
 
 	Text timeLeft;
+    
+    private int curtime;
+    private AudioSource koSfx;
 
 	void Start(){
 		container_1.SetActive (false);
 		container_2.SetActive (false);
-	}
+        koSfx = GetComponent<AudioSource>();
+    }
 
 	public void startCounter(int number){
 		if (number == 1) {
@@ -27,9 +31,16 @@ public class GUIKnockout : MonoBehaviour {
 		} else {
 			Debug.Log ("knockout counter out of bound");
 		}
+        curtime = number;
+        koSfx.Play();
 	}
 	public void tickCounter(int time){
 		timeLeft.text = "" + time;
+        if (time != curtime)
+        {
+            koSfx.Play();
+            curtime = time;
+        }
 	}
 
 	public void endCounter(){

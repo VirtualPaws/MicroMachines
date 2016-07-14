@@ -18,23 +18,31 @@ public class ChooseCam : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetButtonDown ("Fire3")) {
+        if (Input.GetAxis("Powerup1") > 0 || Input.GetAxis("Vertical2") < 0 || Input.GetAxis("Vertical3") < 0)
+        {
 			toggleWindow ();
 		}
 		if (open) {
-			if (Input.GetAxis ("Horizontal1") > 0) {
+            //Bedingungen
+            if (Input.GetAxis("Horizontal1") > 0 || Input.GetAxis("Horizontal2") > 0 || Input.GetAxis("Horizontal3") > 0 || Input.GetAxis("Horizontal4") > 0)
+            {
 				Debug.Log ("grosser 0");
 				setShoulder ();
 				thrdPersonBtn.Select ();
-			} else if (Input.GetAxis ("Horizontal1") < 0) {
+            }
+            else if (Input.GetAxis("Horizontal1") < 0 || Input.GetAxis("Horizontal2") < 0 || Input.GetAxis("Horizontal3") < 0 || Input.GetAxis("Horizontal4") < 0)
+            {
 				Debug.Log ("kleiner 0");
 				setClassic ();
 				classicBtn.Select ();
 			}
-			if (Input.GetButtonDown ("Fire2")) {
-				Debug.Log ("auswählen geht noch nicht");
-				canvasContainer.SetActive (false);
-			}
+
+            /*
+            if (Input.GetAxis("Powerup1") > 0 || Input.GetAxis("Vertical2") > 0 || Input.GetAxis("Vertical3") > 0)
+            {
+                toggleWindow();
+            }
+            */
 		}
 	}
 	public void toggleWindow(){
