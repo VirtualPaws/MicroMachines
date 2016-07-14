@@ -10,6 +10,8 @@ public class ChooseCam : MonoBehaviour {
 	public GameObject canvasContainer;
 	public Button classicBtn;
 	public Button thrdPersonBtn;
+    float toggletimer = 0;
+    bool canToggle = true;
 
 	void Start () {
 		classic = false;
@@ -18,10 +20,14 @@ public class ChooseCam : MonoBehaviour {
 	}
 
 	void Update(){
-        if (Input.GetAxis("Powerup1") > 0 || Input.GetAxis("Vertical2") < 0 || Input.GetAxis("Vertical3") < 0)
+        if (canToggle)
         {
-			toggleWindow ();
-		}
+            if (Input.GetAxis("Powerup1") > 0 || Input.GetAxis("Vertical2") < 0 || Input.GetAxis("Vertical3") < 0)
+            {
+			    toggleWindow ();
+                canToggle = false;
+		    }
+        }
 		if (open) {
             //Bedingungen
             if (Input.GetAxis("Horizontal1") > 0 || Input.GetAxis("Horizontal2") > 0 || Input.GetAxis("Horizontal3") > 0 || Input.GetAxis("Horizontal4") > 0)
@@ -37,13 +43,24 @@ public class ChooseCam : MonoBehaviour {
 				classicBtn.Select ();
 			}
 
-            /*
-            if (Input.GetAxis("Powerup1") > 0 || Input.GetAxis("Vertical2") > 0 || Input.GetAxis("Vertical3") > 0)
+            if (canToggle)
             {
-                toggleWindow();
+                if (Input.GetAxis("Vertical2") > 0 || Input.GetAxis("Vertical3") > 0)
+                {
+                    toggleWindow();
+                }
             }
-            */
 		}
+
+        if (!canToggle)
+        {
+            toggletimer += Time.deltaTime;
+            if (toggletimer > 1)
+            {
+                canToggle = true;
+                toggletimer = 0;
+            }
+        }
 	}
 	public void toggleWindow(){
 		open = !open;
