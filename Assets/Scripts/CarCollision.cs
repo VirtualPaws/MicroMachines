@@ -7,10 +7,13 @@ public class CarCollision : MonoBehaviour
     public float forceMult = 1;
 
     private Rigidbody thisRigidBody;
+    private AudioSource bumpSound;
 
     void Awake()
     {
         thisRigidBody = GetComponent<Rigidbody>();
+        //Audiosources in the array are ordered the same as they are in the Inspector
+        bumpSound = GetComponents<AudioSource>()[1];
     }
 
     void FixedUpdate()
@@ -38,7 +41,7 @@ public class CarCollision : MonoBehaviour
                 Vector3 dirVel = transform.forward * tempVel;
 
                 otherPlayer.AddForceAtPosition(dirVel * forceMult, hit.point);
-
+                bumpSound.Play();
             }
             else
             {
@@ -53,6 +56,7 @@ public class CarCollision : MonoBehaviour
                     Vector3 dirVel = transform.forward * tempVel;
 
                     otherPlayer.AddForceAtPosition(dirVel * forceMult, hit.point);
+                    bumpSound.Play();
                 }
                 else
                 {
@@ -67,6 +71,7 @@ public class CarCollision : MonoBehaviour
                         Vector3 dirVel = transform.forward * tempVel;
 
                         otherPlayer.AddForceAtPosition(dirVel * forceMult, hit.point);
+                        bumpSound.Play();
                     }
                 }
             }

@@ -31,6 +31,12 @@ public class LocalCarSpawner : MonoBehaviour {
             spawn.name = "Player" + (i+1);
             spawn.GetComponent<Driving>().inputDevice = controls[i % controls.Count];
             players.Add(spawn);
+            Transform label = spawn.transform.Find("PlayernameLabel");
+            if(label == null) {
+                continue;
+            }
+            label.GetComponent<TextMesh>().text = spawn.name;
+            label.GetComponent<FaceCamera>().toFace = GameObject.Find("MultipurposeCameraRig_" + (2 - i)).transform.Find("Pivot").Find("MainCamera").gameObject;
         }
 	}
 
